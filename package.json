@@ -1,0 +1,24 @@
+{
+  "name": "wishlist-api",
+  "version": "0.0.0",
+  "description": "A wishlist manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robcalcroft/wishlist-api.git"
+  },
+  "author": "Rob Calcroft",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robcalcroft/wishlist-api/issues"
+  },
+  "homepage": "https://github.com/robcalcroft/wishlist-api#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
+    "pg": "^4.4.2"
+  }
+}
