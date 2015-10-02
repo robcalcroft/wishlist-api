@@ -1,8 +1,8 @@
 {
     "db": {
-        "username": "",
+        "username": "wishlist",
         "password": "",
-        "database": ""
+        "database": "wishlist"
     },
     "port": 8000
 }
