@@ -1,0 +1,14 @@
+doctype
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    title OAuth2
+body
+    p Please login
+    h3 #{message}
+    form(action="/auth/login", method="POST")
+        input(type="text", placeholder="Username", name="username")
+        input(type="password", placeholder="Password", name="password")
+        input(type="submit")
+        
+    
