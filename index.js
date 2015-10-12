@@ -4,4 +4,6 @@
  * Copyright (c) Rob Calcroft 2015
  */
 
-module.exports = require("./lib/init");
+$appRoot = __dirname;
+
+module.exports = require("./lib/controllers/init");
