@@ -11,7 +11,7 @@ Final year project for Rob Calcroft
 # Setup
 
 ##  Database
-For the database scripts to work correctly, you will need a `wishlist` user and a `postgres` user that have the below properties.
+For the database scripts to work correctly, you will need a `wishlist` user and a `postgres` user that have the following properties.
 ```sql
 -- Wishlist/Postgres user
 create user wishlist/postgres with SUPERUSER CREATEROLE CREATEDB REPLICATION PASSWORD '<newpassword>';
