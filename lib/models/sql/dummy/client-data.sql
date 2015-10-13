@@ -10,5 +10,6 @@ VALUES (
     'http://localhost:8000/callback',
     'http://www.testapp.com',
     'bcb5277f-e6af-4385-9aeb-6523a3bf40f8',
-    'e6ce3c35-70a8-448c-a68a-3db71a9dbf90'
+    -- Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6
+    '$2a$08$c6GjZdKGkprTwIZThXE5/uKvnARQnFpk4LaOHdJwxuKJMebC0iycW'
 );
