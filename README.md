@@ -30,3 +30,46 @@ cd bin && ./db-destroy.sh
 2. For production - `export NODE_ENV=production`
 3. Set your port (default is 8000) - `export PORT=6666`
 4. Start the API - `node index.js` or `nodemon` or `forever start index.js` or however you run Node apps
+
+# OAuth2 Flow
+This guide describes the OAuth2 flow for OAuth2 authentication with Wishlist.
+
+#### Get permission from the user
+Open the following in a dialog box.
+```
+GET http://api.example.com/auth/authorize?client_id=*&response_type=code&redirect_uri=*
+```
+The user will be asked to log in (if they aren't already), and will be presented with the option to accept or deny your request for permission. If they accept your redirect URI will be called like so:
+```
+http://example.com/callback?code=*
+```
+This is your authorization code, you will use it to exchange for a token.
+
+If they deny, your redirect URI will be called like so:
+```
+http://example.com/callback?error=access_denied
+```
+#### Obtain a token
+Tokens are given in exchange for your authorization code - your authorization code will be redundant after using it to obtain a token.
+
+Make a request to the following URL:
+```
+POST http://api.example.com/auth/token
+```
+The body of the request can be either `application/json` or `x-www-form-urlencoded`, the former is recommended.
+```json
+{
+    "client_id": "*",
+    "client_secret": "*",
+    "code": "your authorization code",
+    "grant_type": "auth_code",
+    "redirect_uri": "*"
+}
+```
+If your details are accepted, you will recieve the following response:
+```json
+{
+    "access_token": "*",
+    "grant_type": "Bearer"
+}
+```
