@@ -61,7 +61,7 @@ The body of the request can be either `application/json` or `x-www-form-urlencod
 {
     "client_id": "*",
     "client_secret": "*",
-    "code": "your authorization code",
+    "code": "YOUR AUTHORIZATION CODE",
     "grant_type": "auth_code",
     "redirect_uri": "*"
 }
@@ -70,7 +70,7 @@ If your details are accepted, you will receive the following response:
 ```json
 {
     "access_token": "*",
-    "expires": "unix timestamp",
+    "expires": "UNIX TIMESTAMP",
     "grant_type": "Bearer"
 }
 ```
