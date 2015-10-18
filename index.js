@@ -6,4 +6,4 @@
 
 $appRoot = __dirname;
 
-module.exports = require("./lib/controllers/init");
+module.exports = require("./lib/controllers/wishlist");
