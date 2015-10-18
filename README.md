@@ -5,7 +5,6 @@ Final year project for Rob Calcroft
 # Requirements
 - [NodeJS](https://nodejs.org/en/download/)
 - [PostgreSQL](http://www.postgresql.org/download/)
-- [PostGIS](http://postgis.net/install)
 - Dependancies - `npm install --production`
 
 # Setup
