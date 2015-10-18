@@ -37,7 +37,7 @@ This guide describes the OAuth2 flow for OAuth2 authentication with Wishlist.
 #### Get permission from the user
 Open the following in a dialog box.
 ```
-GET http://api.example.com/auth/authorize?client_id=*&response_type=code&redirect_uri=*
+GET http://example.com/auth/authorize?client_id=*&response_type=code&redirect_uri=*
 ```
 The user will be asked to log in (if they aren't already), and will be presented with the option to accept or deny your request for permission. If they accept your redirect URI will be called like so:
 ```
