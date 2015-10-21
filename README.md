@@ -69,7 +69,7 @@ If your details are accepted, you will receive the following response:
 ```json
 {
     "access_token": "*",
-    "refreshToken": "*",
+    "refresh_token": "*",
     "expires_in": "*",
     "grant_type": "Bearer"
 }
