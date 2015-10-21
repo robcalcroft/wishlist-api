@@ -69,7 +69,19 @@ If your details are accepted, you will receive the following response:
 ```json
 {
     "access_token": "*",
-    "expires": "UNIX TIMESTAMP",
+    "refreshToken": "*",
+    "expires_in": "*",
     "grant_type": "Bearer"
 }
 ```
+Your `access_token` can be used to access protected resources relating to the authenticated user, and will expire after the stated time in the response. The `refresh_token` is only used for re-obtaining access tokens and will not expire until the user revokes access to your application. If your `access_token` expires and access to protected resources is still required, the `refresh_token` can be used to obtain a new `access_token` in a similar fashion to the original token request:
+```json
+{
+    "client_id": "*",
+    "client_secret": "*",
+    "refresh_token": "YOUR REFRESH TOKEN",
+    "grant_type": "refresh_token",
+    "redirect_uri": "*"
+}
+```
+Now you'll receive a similar response to the auth code request but there will be no refresh token.
