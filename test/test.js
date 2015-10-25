@@ -1,11 +1,12 @@
 var request = require("request"),
     assert = require("assert"),
     pg = require("pg"),
-    config = require("../config.json");
+    config = require("../config.json"),
+    db;
 
 // Database config
 config.db.database = "wishlist-test";
-var db = new pg.Client(config.db);
+db = new pg.Client(config.db);
 
 // JSHint
 require("mocha-jshint")({
