@@ -29,7 +29,7 @@ The body of the request can be either `application/json` or `x-www-form-urlencod
     "client_id": "*",
     "client_secret": "*",
     "code": "YOUR AUTHORIZATION CODE",
-    "grant_type": "auth_code",
+    "grant_type": "authorization_code",
     "redirect_uri": "*"
 }
 ```

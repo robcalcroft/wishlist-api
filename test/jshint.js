@@ -1,1 +1,3 @@
-require("mocha-jshint")();
+require("mocha-jshint")({
+    title: "Wishlist JSHint"
+});

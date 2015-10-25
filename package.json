@@ -4,14 +4,15 @@
   "description": "A wishlist manager",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha"
+    "test": "bin/test.sh",
+    "start": "nodemon || node index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robcalcroft/wishlist-api.git"
   },
   "author": "Rob Calcroft",
-  "license": "ISC",
+  "license": "None",
   "bugs": {
     "url": "https://github.com/robcalcroft/wishlist-api/issues"
   },
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "mocha": "^2.3.3",
-    "mocha-jshint": "^2.2.5"
+    "mocha-jshint": "^2.2.5",
+    "request": "^2.65.0"
   }
 }
