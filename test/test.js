@@ -7,6 +7,11 @@ var request = require("request"),
 config.db.database = "wishlist-test";
 var db = new pg.Client(config.db);
 
+// JSHint
+require("mocha-jshint")({
+    title: "Wishlist JSHint"
+});
+
 describe("Wishlist API", function() {
 
     it("should connect to the database", function(done) {
