@@ -21,7 +21,7 @@ describe("Wishlist API", function() {
         var client = {
             id: "bcb5277f-e6af-4385-9aeb-6523a3bf40f8",
             secret: "Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6",
-            redirect_uri: "http://localhost:8000/callback"
+            redirect_uri: "http://localhost:"+config.port+"/callback"
         };
 
         var user = {
@@ -35,7 +35,7 @@ describe("Wishlist API", function() {
         var authCode = null;
 
         it("should redirect to the login screen when client opens /auth/authorize if the user isn't logged in", function(done) {
-            request("http://127.0.0.1:8000/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code", function(err, res, body) {
+            request("http://127.0.0.1:"+config.port+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code", function(err, res, body) {
                 assert.equal(res.client._httpMessage.path, "/auth/login");
                 done();
             });
@@ -46,7 +46,7 @@ describe("Wishlist API", function() {
             request(
                 {
                     method: "POST",
-                    url: "http://127.0.0.1:8000/auth/login",
+                    url: "http://127.0.0.1:"+config.port+"/auth/login",
                     // This data is included in the SQL dummy data
                     form: {
                         "username": user.username,
@@ -58,7 +58,7 @@ describe("Wishlist API", function() {
                     if(body !== "Found. Redirecting to /auth/login") {
                         request(
                             {
-                                url: "http://127.0.0.1:8000/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
+                                url: "http://127.0.0.1:"+config.port+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
                                 jar: cookieJar
                             },
                             function(err, res, body) {
@@ -78,7 +78,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:8000/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
+                    url: "http://127.0.0.1:"+config.port+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
                     jar: cookieJar
                 },
                 function(err, res, body) {
@@ -87,7 +87,7 @@ describe("Wishlist API", function() {
                     request(
                         {
                             method: "POST",
-                            url: "http://127.0.0.1:8000/auth/decision",
+                            url: "http://127.0.0.1:"+config.port+"/auth/decision",
                             jar: cookieJar,
                             form: {
                                 "transaction_id": transId,
@@ -108,7 +108,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:8000/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
+                    url: "http://127.0.0.1:"+config.port+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
                     jar: cookieJar
                 },
                 function(err, res, body) {
@@ -117,7 +117,7 @@ describe("Wishlist API", function() {
                     request(
                         {
                             method: "POST",
-                            url: "http://127.0.0.1:8000/auth/decision",
+                            url: "http://127.0.0.1:"+config.port+"/auth/decision",
                             jar: cookieJar,
                             form: {
                                 "transaction_id": transId
@@ -138,7 +138,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:8000/auth/token",
+                    url: "http://127.0.0.1:"+config.port+"/auth/token",
                     method: "POST",
                     form: {
                         "client_id": "wrong",
@@ -157,7 +157,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:8000/auth/token",
+                    url: "http://127.0.0.1:"+config.port+"/auth/token",
                     method: "POST",
                     form: {
                         "client_id": client.id,
@@ -179,7 +179,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:8000/auth/token",
+                    url: "http://127.0.0.1:"+config.port+"/auth/token",
                     method: "POST",
                     form: {
                         "client_id": client.id,
@@ -200,7 +200,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:8000/auth/token",
+                    url: "http://127.0.0.1:"+config.port+"/auth/token",
                     method: "POST",
                     form: {
                         "client_id": client.id,
