@@ -28,7 +28,7 @@ cd bin && ./db-destroy.sh
 1. Ensure PostgreSQL is running
 2. For production - `export NODE_ENV=production`
 3. Set your port (default is 8000) - `export PORT=6666`
-4. Start the API - `node index.js` or `nodemon` or `forever start index.js` or however you run Node apps
+4. Start the API - `npm start`
 
 # Testing
 Install the repo with dev dependancies and run `npm test`. The test script builds a test database called `wishlist-test` in your PostgreSQL database and then destroys it afterwards. See `bin/test.sh` for info.
