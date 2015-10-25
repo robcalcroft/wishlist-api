@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "bin/test.sh",
-    "start": "nodemon || node index.js",
-    "postinstall": "bin/db-rebuild.sh"
+    "start": "nodemon || node index.js"
   },
   "repository": {
     "type": "git",
