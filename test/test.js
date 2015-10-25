@@ -38,7 +38,7 @@ describe("Wishlist API", function() {
         // Maintains state
         var cookieJar = request.jar();
 
-        var authCode = null;
+        var authCode, refreshToken, accessToken;
 
         it("should redirect to the login screen when client opens /auth/authorize if the user isn't logged in", function(done) {
             request("http://127.0.0.1:"+config.port+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code", function(err, res, body) {
@@ -220,6 +220,54 @@ describe("Wishlist API", function() {
                     var result = JSON.parse(body);
                     assert(result.access_token);
                     assert(result.refresh_token);
+
+                    refreshToken = result.refresh_token;
+                    accessToken = result.access_token;
+
+                    done();
+                }
+            );
+
+        });
+
+        it("should allow the access token to access protected resources", function(done) {
+
+            request(
+                {
+                    url: "http://127.0.0.1:"+config.port+"/protected",
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + accessToken
+                    }
+                },
+                function(err, res, body) {
+                    assert.notEqual(res.statusCode, 401);
+                    assert(JSON.parse(body).success);
+                    done();
+                }
+            );
+
+        });
+
+        it("should allow the refresh token to request a new access token", function(done) {
+
+            request(
+                {
+                    url: "http://127.0.0.1:"+config.port+"/auth/token",
+                    method: "POST",
+                    form: {
+                        "client_id": client.id,
+                        "client_secret": client.secret,
+                        "grant_type": "refresh_token",
+                        "redirect_uri": client.redirect_uri,
+                        "refresh_token": refreshToken
+                    }
+                },
+                function(err, res, body) {
+                    var result = JSON.parse(body);
+                    assert(result.access_token);
+                    assert.notEqual(accessToken, result.access_token);
+
                     done();
                 }
             );
