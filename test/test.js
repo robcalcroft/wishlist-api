@@ -234,7 +234,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+config.port+"/protected",
+                    url: "http://127.0.0.1:"+config.port+"/auth/protected",
                     method: "GET",
                     headers: {
                         "Authorization": "Bearer " + accessToken

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "bin/test.sh",
-    "start": "nodemon || node index.js"
+    "start": "nodemon || node index.js",
+    "docs": "node_modules/.bin/apidoc -i lib/routes/ -o docs/html && node_modules/.bin/apidoc-markdown -p docs/html -o docs/md/API.md"
   },
   "repository": {
     "type": "git",
@@ -37,8 +38,17 @@
     "sql": "^0.60.0"
   },
   "devDependencies": {
+    "apidoc": "^0.13.1",
+    "apidoc-markdown": "^0.2.0",
     "mocha": "^2.3.3",
     "mocha-jshint": "^2.2.5",
     "request": "^2.65.0"
+  },
+  "apidoc": {
+    "name": "Wishlist Public API Docs",
+    "version": "0.0.0",
+    "description": "A vendor agnostic wishlist creator",
+    "title": "Wishlist Public API Docs",
+    "url": "https://api.wishlist.com"
   }
 }

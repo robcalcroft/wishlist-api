@@ -30,5 +30,8 @@ cd bin && ./db-destroy.sh
 3. Set your port (default is 8000) - `export PORT=6666`
 4. Start the API - `npm start`
 
+# API Documentation
+Documentation comes in the form of Markdown documents, stored in `docs/md` or web REST API documentation located at `example.com/docs`.
+
 # Testing
 Install the repo with dev dependancies and run `npm test`. The test script builds a test database called `wishlist-test` in your PostgreSQL database and then destroys it afterwards. See `bin/test.sh` for info.
