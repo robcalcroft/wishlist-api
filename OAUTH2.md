@@ -8,13 +8,13 @@ GET http://example.com/auth/authorize?client_id=*&response_type=code&redirect_ur
 ```
 The user will be asked to log in (if they aren't already), and will be presented with the option to accept or deny your request for permission. If they accept your redirect URI will be called like so:
 ```
-http://example.com/callback?code=*
+GET http://example.com/callback?code=*
 ```
 This is your authorization code, you will use it to exchange for a token.
 
 If they deny, your redirect URI will be called like so:
 ```
-http://example.com/callback?error=access_denied
+GET http://example.com/callback?error=access_denied
 ```
 #### Obtain a token
 Tokens are given in exchange for your authorization code - your authorization code will be redundant after using it to obtain a token.
