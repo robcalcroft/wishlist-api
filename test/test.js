@@ -25,7 +25,7 @@ describe("Wishlist API", function() {
     describe("OAuth2", function() {
 
         var client = {
-            id: "bcb5277f-e6af-4385-9aeb-6523a3bf40f8",
+            id: "f6effb0a6eaf48daf2e9588d76733592",
             secret: "Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6",
             redirect_uri: "http://localhost:"+config.port+"/callback"
         };

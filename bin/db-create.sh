@@ -11,13 +11,13 @@ echo "-- APPLICATION --"
 # Setup User table
 psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../lib/models/sql/User.sql > /dev/null
 echo "> User table created"
-psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../lib/models/sql/test/user-data.sql > /dev/null
+psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../test/user-data.sql > /dev/null
 echo "> User data inserted"
 
 # Setup Client table
 psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../lib/models/sql/Client.sql > /dev/null
 echo "> Client table created"
-psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../lib/models/sql/test/client-data.sql > /dev/null
+psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../test/client-data.sql > /dev/null
 echo "> Client data inserted"
 
 echo "-- OAUTH2 --"
