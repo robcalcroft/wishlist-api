@@ -13,7 +13,7 @@ Final year project for Rob Calcroft
 For the database scripts to work correctly, you will need a `wishlist` user and a `postgres` user that have the following properties:
 ```sql
 -- Wishlist/Postgres user
-create user wishlist/postgres with SUPERUSER CREATEROLE CREATEDB REPLICATION PASSWORD '<newpassword>';
+create user wishlist/postgres with SUPERUSER CREATEROLE CREATEDB REPLICATION PASSWORD '<NEWPASSWORD>';
 ```
 Then to setup the database run:
 ```bash

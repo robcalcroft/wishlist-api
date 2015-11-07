@@ -31,7 +31,7 @@ A vendor agnostic wishlist creator
 Success
 
 ```
-GET http://example.com/callback?code=AUTHCODE
+GET http://example.com/callback?code=<AUTHCODE>
 ```
 ### Error Response
 
@@ -86,9 +86,9 @@ Success - auth code grant type
 
 ```
 {
-    "access_token": "*",
-    "refreshToken": "*",
-    "expires_in": "*",
+    "access_token": "<ACCESSTOKEN>",
+    "refreshToken": "<REFRESHTOKEN>",
+    "expires_in": "<EXPIRESIN>",
     "grant_type": "Bearer"
 }
 ```
@@ -96,8 +96,8 @@ Success - refresh token grant type
 
 ```
 {
-    "access_token": "*",
-    "expires_in": "*",
+    "access_token": "<ACCESSTOKEN>",
+    "expires_in": "<EXPIRESIN>",
     "grant_type": "Bearer"
 }
 ```
