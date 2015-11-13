@@ -13,6 +13,40 @@ require("mocha-jshint")({
     title: "Wishlist JSHint"
 });
 
+
+// Unit testing
+describe("Utilities testing", function() {
+
+    var utils = require("../lib/controllers/utils.js")();
+
+    describe("Token generation", function() {
+
+        it("should generate a token", function() {
+            assert(utils.tokenOrSecret());
+        });
+
+        it("should generate a token of length 75 when no parameters are provided", function() {
+            assert.equal(utils.tokenOrSecret().length, 75);
+        });
+
+        it("should generate a token of a specified length when provided to the function", function() {
+            assert.equal(utils.tokenOrSecret(100).length, 100);
+        });
+
+    });
+
+    describe("UUID generation", function() {
+
+        it("should generate a uuid", function() {
+            assert(utils.uuid());
+        });
+
+    });
+
+});
+
+
+// Main API Testing
 describe("Wishlist API", function() {
 
     it("should connect to the database", function(done) {
