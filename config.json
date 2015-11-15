@@ -5,6 +5,6 @@
         "database": "wishlist"
     },
     "port": 8000,
-    "tokenExpiry": 3600,
+    "accessTokenExpiry": 3600,
     "region": "en"
 }
