@@ -1,7 +1,10 @@
-var request = require("request"),
-    assert = require("assert"),
-    pg = require("pg"),
-    config = require("../config.json"),
+import request from "request";
+import assert from "assert";
+import pg from "pg";
+import jshint from "mocha-jshint";
+import { tokenOrSecret, uuid } from "controllers/utils";
+
+let config = require("../config.json"),
     db;
 
 // Database config
@@ -9,7 +12,7 @@ config.db.database = "wishlist-test";
 db = new pg.Client(config.db);
 
 // JSHint
-require("mocha-jshint")({
+jshint({
     title: "Wishlist JSHint"
 });
 
@@ -17,20 +20,18 @@ require("mocha-jshint")({
 // Unit testing
 describe("Utilities testing", function() {
 
-    var utils = require("../lib/controllers/utils.js")();
-
     describe("Token generation", function() {
 
         it("should generate a token", function() {
-            assert(utils.tokenOrSecret());
+            assert(tokenOrSecret());
         });
 
         it("should generate a token of length 75 when no parameters are provided", function() {
-            assert.equal(utils.tokenOrSecret().length, 75);
+            assert.equal(tokenOrSecret().length, 75);
         });
 
         it("should generate a token of a specified length when provided to the function", function() {
-            assert.equal(utils.tokenOrSecret(100).length, 100);
+            assert.equal(tokenOrSecret(100).length, 100);
         });
 
     });
@@ -38,7 +39,7 @@ describe("Utilities testing", function() {
     describe("UUID generation", function() {
 
         it("should generate a uuid", function() {
-            assert(utils.uuid());
+            assert(uuid());
         });
 
     });

@@ -1,3 +1,4 @@
 .DS_Store
 .ThumbsDB
 node_modules/
+.env

@@ -4,6 +4,15 @@
  * Copyright (c) Rob Calcroft 2015
  */
 
-$appRoot = __dirname;
+// ES5 code here, subsequent requires are done using Babel
 
-module.exports = require("./lib/controllers/wishlist");
+require("babel-core/register");
+
+// Required globals
+Wishlist = {
+    appRoot: __dirname
+};
+
+console.log("\n> Starting up");
+
+require("./lib/controllers/wishlist");

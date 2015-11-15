@@ -13,7 +13,7 @@ SERVER_PID=$!
 
 # Start tests
 echo "> Testing"
-node_modules/.bin/mocha
+node_modules/.bin/mocha --compilers js:babel-core/register
 EXIT_CODE=$?
 
 # Kill server
