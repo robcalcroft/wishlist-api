@@ -8,6 +8,10 @@
 
 require("babel-core/register");
 
+global.Wishlist = {
+    config: require("./config.json")
+};
+
 console.log("\n> Starting up");
 
 require("./lib/controllers/wishlist");
