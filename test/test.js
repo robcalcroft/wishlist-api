@@ -6,8 +6,7 @@ import path from "path";
 import { tokenOrSecret, uuid, i18n } from "controllers/utils";
 
 global.Wishlist = {};
-Wishlist.appRoot = path.resolve(".");
-Wishlist.config = require(`${Wishlist.appRoot}/config.json`);
+Wishlist.config = require(`${path.resolve(".")}/config.json`);
 
 
 // Database Wishlist.config
@@ -324,6 +323,19 @@ describe("Wishlist API", function() {
                 }
             );
 
+        });
+
+    });
+
+});
+
+describe("Docs", () => {
+
+    it("should present the user with the docs page", (done) => {
+
+        request(`http://127.0.0.1:${Wishlist.config.port}/docs`, (err, res, body) => {
+            assert.equal(res.statusCode, 200);
+            done();
         });
 
     });
