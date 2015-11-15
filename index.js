@@ -8,11 +8,6 @@
 
 require("babel-core/register");
 
-// Required globals
-Wishlist = {
-    appRoot: __dirname
-};
-
 console.log("\n> Starting up");
 
 require("./lib/controllers/wishlist");
