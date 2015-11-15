@@ -7,9 +7,10 @@ Final year project for Rob Calcroft
 - [PostgreSQL](http://www.postgresql.org/download/)
 - Dependancies - `npm install --production`
 
-# Setup
+# Config
+The included `config.json` file needs to have your database details in as well as your region (set to `en` by default).
 
-##  Database
+# Database
 For the database scripts to work correctly, you will need a `wishlist` user and a `postgres` user that have the following properties:
 ```sql
 -- Wishlist/Postgres user
@@ -24,11 +25,10 @@ To destroy the database run:
 cd bin && ./db-destroy.sh
 ```
 
-## Startup
+# Startup
 1. Ensure PostgreSQL is running
-2. For production - `export NODE_ENV=production`
-3. Set your port (default is 8000) - `export PORT=6666`
-4. Start the API - `npm start`
+2. Ensure `.env` has `NODE_PATH=./lib` in it.
+3. Start the API - `npm start`
 
 # API Documentation
 Documentation comes in the form of Markdown documents, stored in `docs/md` or web REST API documentation located at `example.com/docs`.

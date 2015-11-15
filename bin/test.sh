@@ -8,6 +8,7 @@ cd ..
 
 # Start server and cache PID
 export WISHLIST_TEST=1
+export NODE_PATH=./lib
 node index.js > /dev/null &
 SERVER_PID=$!
 
@@ -20,6 +21,7 @@ EXIT_CODE=$?
 kill $SERVER_PID
 
 unset WISHLIST_TEST
+unset NODE_PATH
 
 # Destroy test DB
 cd bin

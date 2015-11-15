@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "bin/test.sh",
-    "start": "nodemon || node index.js",
+    "start": "export NODE_PATH=./lib && nodemon || node index.js",
     "docs": "node_modules/.bin/apidoc -i lib/routes/ -o docs/html && node_modules/.bin/apidoc-markdown -p docs/html -o docs/md/API.md"
   },
   "repository": {
