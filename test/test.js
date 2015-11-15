@@ -4,14 +4,29 @@ import pg from "pg";
 import jshint from "mocha-jshint";
 import path from "path";
 import { tokenOrSecret, uuid, i18n } from "controllers/utils";
+import dotenv from "dotenv";
 
-global.Wishlist = {};
-Wishlist.config = require(`${path.resolve(".")}/config.json`);
+dotenv.load();
 
+// ***************************************
+//    Code taken from lib/controllers/db
+//         For testing purposes
+// ***************************************
 
-// Database Wishlist.config
-Wishlist.config.db.database = "wishlist-test";
-let db = new pg.Client(Wishlist.config.db);
+// Test config
+if(process.env.WISHLIST_TEST) {
+    process.env.DB_NAME = "wishlist-test";
+}
+
+let dbConfig = {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+};
+
+let db = new pg.Client(dbConfig);
+
+// ***************************************
 
 // JSHint
 jshint({
@@ -78,7 +93,7 @@ describe("Wishlist API", function() {
         var client = {
             id: "f6effb0a6eaf48daf2e9588d76733592",
             secret: "Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6",
-            redirect_uri: "http://localhost:"+Wishlist.config.port+"/callback"
+            redirect_uri: "http://localhost:"+process.env.PORT+"/callback"
         };
 
         var user = {
@@ -92,7 +107,7 @@ describe("Wishlist API", function() {
         var authCode, refreshToken, accessToken;
 
         it("should redirect to the login screen when client opens /auth/authorize if the user isn't logged in", function(done) {
-            request("http://127.0.0.1:"+Wishlist.config.port+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code", function(err, res, body) {
+            request("http://127.0.0.1:"+process.env.PORT+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code", function(err, res, body) {
                 assert.equal(res.client._httpMessage.path, "/auth/login");
                 done();
             });
@@ -103,7 +118,7 @@ describe("Wishlist API", function() {
             request(
                 {
                     method: "POST",
-                    url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/login",
+                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/login",
                     // This data is included in the SQL dummy data
                     form: {
                         "username": user.username,
@@ -115,7 +130,7 @@ describe("Wishlist API", function() {
                     if(body !== "Found. Redirecting to /auth/login") {
                         request(
                             {
-                                url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
+                                url: "http://127.0.0.1:"+process.env.PORT+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
                                 jar: cookieJar
                             },
                             function(err, res, body) {
@@ -135,7 +150,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
+                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
                     jar: cookieJar
                 },
                 function(err, res, body) {
@@ -144,7 +159,7 @@ describe("Wishlist API", function() {
                     request(
                         {
                             method: "POST",
-                            url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/decision",
+                            url: "http://127.0.0.1:"+process.env.PORT+"/auth/decision",
                             jar: cookieJar,
                             form: {
                                 "transaction_id": transId,
@@ -165,7 +180,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
+                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
                     jar: cookieJar
                 },
                 function(err, res, body) {
@@ -174,7 +189,7 @@ describe("Wishlist API", function() {
                     request(
                         {
                             method: "POST",
-                            url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/decision",
+                            url: "http://127.0.0.1:"+process.env.PORT+"/auth/decision",
                             jar: cookieJar,
                             form: {
                                 "transaction_id": transId
@@ -195,7 +210,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/token",
+                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
                     method: "POST",
                     form: {
                         "client_id": "wrong",
@@ -214,7 +229,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/token",
+                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
                     method: "POST",
                     form: {
                         "client_id": client.id,
@@ -236,7 +251,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/token",
+                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
                     method: "POST",
                     form: {
                         "client_id": client.id,
@@ -257,7 +272,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/token",
+                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
                     method: "POST",
                     form: {
                         "client_id": client.id,
@@ -285,7 +300,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/protected",
+                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/protected",
                     method: "GET",
                     headers: {
                         "Authorization": "Bearer " + accessToken
@@ -304,7 +319,7 @@ describe("Wishlist API", function() {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+Wishlist.config.port+"/auth/token",
+                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
                     method: "POST",
                     form: {
                         "client_id": client.id,
@@ -333,7 +348,7 @@ describe("Docs", () => {
 
     it("should present the user with the docs page", (done) => {
 
-        request(`http://127.0.0.1:${Wishlist.config.port}/docs`, (err, res, body) => {
+        request(`http://127.0.0.1:${process.env.PORT}/docs`, (err, res, body) => {
             assert.equal(res.statusCode, 200);
             done();
         });

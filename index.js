@@ -8,9 +8,8 @@
 
 require("babel-core/register");
 
-global.Wishlist = {
-    config: require("./config.json")
-};
+// Load environment
+require("dotenv").load();
 
 console.log("\n> Starting up");
 
