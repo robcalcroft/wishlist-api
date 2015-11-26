@@ -6,10 +6,10 @@ INSERT INTO "User" (
     "lastName",
     "DOB"
 )
--- j1mb0
 VALUES (
     'jimbo@jones.com',
     'jimbojones',
+    -- j1mb0
     '$2a$08$E3jXG8eioYWO.povpYuj..BosV2VSiSGvyYXnWZBp4Q6LVvAAPixq',
     'Jimbo',
     'Jones',
