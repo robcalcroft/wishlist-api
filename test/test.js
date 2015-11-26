@@ -18,13 +18,11 @@ if(process.env.WISHLIST_TEST) {
     process.env.DB_NAME = "wishlist-test";
 }
 
-let dbConfig = {
+let db = new pg.Client({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
-};
-
-let db = new pg.Client(dbConfig);
+});
 
 // ***************************************
 
