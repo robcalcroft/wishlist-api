@@ -6,7 +6,7 @@
   "scripts": {
     "test": "bin/test.sh",
     "start": "export NODE_PATH=./lib && nodemon || node index.js",
-    "docs": "node_modules/.bin/apidoc -i lib/routes/ -o docs/html && node_modules/.bin/apidoc-markdown -p docs/html -o docs/md/API.md"
+    "docs": "node_modules/.bin/apidoc -i lib/routes/ -o docs/apidoc && node_modules/.bin/apidoc-markdown -p docs/apidoc -o docs/API.md"
   },
   "repository": {
     "type": "git",
