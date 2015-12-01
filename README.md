@@ -1,37 +1,20 @@
-# wishlist-api
+<p align="center">
+  <img src="https://cdn.rawgit.com/twitter/twemoji/gh-pages/svg/1f31f.svg" alt="Star" width="35%">
+</p>
 
-Final year project for Rob Calcroft
+<p align="center">
+  <b>rob c's final year project</b>
+</p>
 
-# Requirements
-- [NodeJS](https://nodejs.org/en/download/)
-- [PostgreSQL](http://www.postgresql.org/download/)
-- Dependancies - `npm install --production`
+## Docs
+REST API documentation is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/docs/API.md)
 
-# Config
-The included `config.json` file needs to have your database details in as well as your region (set to `en` by default).
+OAuth2 flow is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/docs/OAUTH2FLOW.md)
 
-# Database
-For the database scripts to work correctly, you will need a `wishlist` user and a `postgres` user that have the following properties:
-```sql
--- Wishlist/Postgres user
-create user wishlist/postgres with SUPERUSER CREATEROLE CREATEDB REPLICATION PASSWORD '<NEWPASSWORD>';
-```
-Then to setup the database run:
-```bash
-cd bin && ./db-create.sh
-```
-To destroy the database run:
-```bash
-cd bin && ./db-destroy.sh
-```
+Setup documentation is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/docs)
 
-# Startup
-1. Ensure PostgreSQL is running
-2. Ensure `.env` has `NODE_PATH=./lib` in it.
-3. Start the API - `npm start`
+##Issues
+Log issues [here](https://github.com/robcalcroft/wishlist-api/issues)
 
-# API Documentation
-Documentation comes in the form of Markdown documents, stored in `docs/md` or web REST API documentation located at `example.com/docs`.
-
-# Testing
-Install the repo with dev dependancies and run `npm test`. The test script builds a test database called `wishlist-test` in your PostgreSQL database and then destroys it afterwards. See `bin/test.sh` for info.
+##License
+© 2015 Rob Calcroft
