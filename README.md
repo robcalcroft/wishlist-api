@@ -11,7 +11,7 @@ REST API documentation is [here](https://github.com/robcalcroft/wishlist-api/tre
 
 OAuth2 flow is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/docs/OAUTH2FLOW.md)
 
-Setup documentation is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/docs)
+Setup documentation is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/docs/SETUP.md)
 
 ##Issues
 Log issues [here](https://github.com/robcalcroft/wishlist-api/issues)
