@@ -6,7 +6,7 @@
   <b>rob c's final year project</b>
 </p>
 
-## Docs
+## Documentation
 REST API documentation is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/docs/API.md)
 
 OAuth2 flow is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/docs/OAUTH2FLOW.md)
