@@ -3,7 +3,8 @@
 </p>
 
 <p align="center">
-  <b>rob c's final year project</b>
+  <b>a vendor agnostic wishlist creator</b>
+  <i>also final year project for RC</i>
 </p>
 
 ## Documentation
