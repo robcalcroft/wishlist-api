@@ -3,7 +3,8 @@
 </p>
 
 <p align="center">
-  <b>a vendor agnostic wishlist creator</b>
+  <b>A VENDOR AGNOSTIC WISHLIST CREATOR</b>
+  <br>
   <i>also final year project for RC</i>
 </p>
 
