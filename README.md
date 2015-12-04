@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://cdn.rawgit.com/twitter/twemoji/gh-pages/svg/1f31f.svg" alt="Star" width="35%">
+  <img src="https://cdn.rawgit.com/twitter/twemoji/gh-pages/svg/1f31f.svg" alt="Star" width="30%">
 </p>
 
 <p align="center">
