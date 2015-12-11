@@ -33,3 +33,7 @@ echo "> AccessToken table created"
 # Setup RefreshToken table
 psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../lib/models/sql/RefreshToken.sql > /dev/null
 echo "> RefreshToken table created"
+
+# Setup session table
+psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../node_modules/connect-pg-simple/table.sql > /dev/null
+echo "> Session table created"
