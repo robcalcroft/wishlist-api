@@ -4,19 +4,9 @@
 2. Install [NodeJS](https://nodejs.org/en/download/)
 3. `npm i`
 4. Install [PostgreSQL](http://www.postgresql.org/download/) for your [*nix](https://en.wikipedia.org/wiki/Unix-like)
-5. Create a `.env` file in the root that has the following structure
-  
-  ```bash
-  PORT="<PORT>"
-  DB_USERNAME="wishlist"
-  DB_PASSWORD="<DBPASSWORD>"
-  DB_NAME="wishlist"
-  ACCESS_TOKEN_EXPIRY="<EXPIRY TIME IN SECONDS (USUALLY 3600)>"
-  REGION="<REGION>"
-  SECRET="<SECRET>"
-  ```
+5. Create a `.env` file in the root using `.env-sample`
 6. Setup the database user
-  
+
   ```sql
   create user wishlist with SUPERUSER CREATEROLE CREATEDB REPLICATION PASSWORD '<NEWPASSWORD>';
   ```
