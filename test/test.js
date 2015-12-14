@@ -1,10 +1,10 @@
-import request from "request";
-import assert from "assert";
-import pg from "pg";
-import jshint from "mocha-jshint";
-import path from "path";
-import { tokenOrSecret, uuid, i18n } from "controllers/utils";
-import dotenv from "dotenv";
+import request from 'request';
+import assert from 'assert';
+import pg from 'pg';
+import jshint from 'mocha-jshint';
+import path from 'path';
+import { tokenOrSecret, uuid, i18n } from 'controllers/utils';
+import dotenv from 'dotenv';
 
 dotenv.load();
 
@@ -15,7 +15,7 @@ dotenv.load();
 
 // Test config
 if(process.env.WISHLIST_TEST) {
-    process.env.DB_NAME = "wishlist-test";
+    process.env.DB_NAME = 'wishlist-test';
 }
 
 let db = new pg.Client({
@@ -28,47 +28,47 @@ let db = new pg.Client({
 
 // JSHint
 jshint({
-    title: "Wishlist JSHint"
+    title: 'Wishlist JSHint'
 });
 
 
 // Unit testing
-describe("Utilities testing", function() {
+describe('Utilities testing', function() {
 
-    describe("Token generation", function() {
+    describe('Token generation', function() {
 
-        it("should generate a token", function() {
+        it('should generate a token', function() {
             assert(tokenOrSecret());
         });
 
-        it("should generate a token of length 75 when no parameters are provided", function() {
+        it('should generate a token of length 75 when no parameters are provided', function() {
             assert.equal(tokenOrSecret().length, 75);
         });
 
-        it("should generate a token of a specified length when provided to the function", function() {
+        it('should generate a token of a specified length when provided to the function', function() {
             assert.equal(tokenOrSecret(100).length, 100);
         });
 
-        it("should generate a URL safe token", () => {
+        it('should generate a URL safe token', () => {
             var token = tokenOrSecret();
             assert.equal(encodeURIComponent(token), token);
         });
 
     });
 
-    describe("UUID generation", function() {
+    describe('UUID generation', function() {
 
-        it("should generate a uuid", function() {
+        it('should generate a uuid', function() {
             assert(uuid());
         });
 
     });
 
-    describe("I18N", () => {
+    describe('I18N', () => {
 
-        it("should map a string code to it's region based string", () => {
-            let locCode = "errors.404";
-            assert.equal(i18n(locCode), require("../lib/I18N/en.json")["errors.404"]);
+        it('should map a string code to it\'s region based string', () => {
+            let locCode = 'errors.404';
+            assert.equal(i18n(locCode), require('../lib/I18N/en.json')['errors.404']);
         });
 
     });
@@ -77,26 +77,26 @@ describe("Utilities testing", function() {
 
 
 // Main API Testing
-describe("Wishlist API", function() {
+describe('Wishlist API', function() {
 
-    it("should connect to the database", function(done) {
+    it('should connect to the database', function(done) {
         db.connect(function(err) {
             assert(!err);
             done();
         });
     });
 
-    describe("OAuth2", function() {
+    describe('OAuth2', function() {
 
         var client = {
-            id: "f6effb0a6eaf48daf2e9588d76733592",
-            secret: "Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6",
-            redirect_uri: "http://localhost:"+process.env.PORT+"/callback"
+            id: 'f6effb0a6eaf48daf2e9588d76733592',
+            secret: 'Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6',
+            redirect_uri: 'http://localhost:'+process.env.PORT+'/callback'
         };
 
         var user = {
-            username: "jimbojones",
-            password: "j1mb0"
+            username: 'jimbojones',
+            password: 'j1mb0'
         };
 
         // Maintains state
@@ -104,51 +104,51 @@ describe("Wishlist API", function() {
 
         var authCode, refreshToken, accessToken;
 
-        it("should redirect to the login screen when client opens /auth/authorize if the user isn't logged in", function(done) {
-            request("http://127.0.0.1:"+process.env.PORT+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code", function(err, res, body) {
-                assert.equal(res.client._httpMessage.path, "/auth/login");
+        it('should redirect to the login screen when client opens /auth/authorize if the user isn\'t logged in', function(done) {
+            request('http://127.0.0.1:'+process.env.PORT+'/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code', function(err, res, body) {
+                assert.equal(res.client._httpMessage.path, '/auth/login');
                 done();
             });
         });
 
-        it("should present the user with the decision screen if they're logged in", function(done) {
+        it('should present the user with the decision screen if they\'re logged in', function(done) {
 
             request(
                 {
-                    method: "POST",
-                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/login",
+                    method: 'POST',
+                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/login',
                     // This data is included in the SQL dummy data
                     form: {
-                        "username": user.username,
-                        "password": user.password
+                        'username': user.username,
+                        'password': user.password
                     },
                     jar: cookieJar
                 },
                 function(err, res, body) {
-                    if(body !== "Found. Redirecting to /auth/login") {
+                    if(body !== 'Found. Redirecting to /auth/login') {
                         request(
                             {
-                                url: "http://127.0.0.1:"+process.env.PORT+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
+                                url: 'http://127.0.0.1:'+process.env.PORT+'/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code',
                                 jar: cookieJar
                             },
                             function(err, res, body) {
-                                assert.equal(res.client._httpMessage.path, "/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code");
+                                assert.equal(res.client._httpMessage.path, '/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code');
                                 done();
                             }
                         );
                     } else {
-                        assert.fail(body, "Found. Redirecting to /auth/login", "Expects not to redirect to /auth/login", "!=");
+                        assert.fail(body, 'Found. Redirecting to /auth/login', 'Expects not to redirect to /auth/login', '!=');
                     }
                 }
             );
 
         });
 
-        it("should call the callback with error=access_denied when user's decision is 'deny'", function(done) {
+        it('should call the callback with error=access_denied when user\'s decision is \'deny\'', function(done) {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
+                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code',
                     jar: cookieJar
                 },
                 function(err, res, body) {
@@ -156,12 +156,12 @@ describe("Wishlist API", function() {
 
                     request(
                         {
-                            method: "POST",
-                            url: "http://127.0.0.1:"+process.env.PORT+"/auth/decision",
+                            method: 'POST',
+                            url: 'http://127.0.0.1:'+process.env.PORT+'/auth/decision',
                             jar: cookieJar,
                             form: {
-                                "transaction_id": transId,
-                                "cancel": "Deny"
+                                'transaction_id': transId,
+                                'cancel': 'Deny'
                             }
                         },
                         function(err, res, body) {
@@ -174,11 +174,11 @@ describe("Wishlist API", function() {
 
         });
 
-        it("should call the callback with the authorization code when the user's decsion is 'allow'", function(done) {
+        it('should call the callback with the authorization code when the user\'s decsion is \'allow\'', function(done) {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/authorize?client_id=" + client.id + "&redirect_uri=" + client.redirect_uri + "&response_type=code",
+                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code',
                     jar: cookieJar
                 },
                 function(err, res, body) {
@@ -186,16 +186,16 @@ describe("Wishlist API", function() {
 
                     request(
                         {
-                            method: "POST",
-                            url: "http://127.0.0.1:"+process.env.PORT+"/auth/decision",
+                            method: 'POST',
+                            url: 'http://127.0.0.1:'+process.env.PORT+'/auth/decision',
                             jar: cookieJar,
                             form: {
-                                "transaction_id": transId
+                                'transaction_id': transId
                             }
                         },
                         function(err, res, body) {
                             assert.equal(/code=/.test(body), true);
-                            authCode = body.match(/code=\w+/)[0].split("=")[1];
+                            authCode = body.match(/code=\w+/)[0].split('=')[1];
                             done();
                         }
                     );
@@ -204,15 +204,15 @@ describe("Wishlist API", function() {
 
         });
 
-        it("should return a 401 status when no client id or secret is incorrect", function(done) {
+        it('should return a 401 status when no client id or secret is incorrect', function(done) {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
-                    method: "POST",
+                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    method: 'POST',
                     form: {
-                        "client_id": "wrong",
-                        "client_secret": "wrong"
+                        'client_id': 'wrong',
+                        'client_secret': 'wrong'
                     }
                 },
                 function(err, res, body) {
@@ -223,61 +223,61 @@ describe("Wishlist API", function() {
 
         });
 
-        it("should throw a grant_type error when incorrect grant type is specified", function(done) {
+        it('should throw a grant_type error when incorrect grant type is specified', function(done) {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
-                    method: "POST",
+                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    method: 'POST',
                     form: {
-                        "client_id": client.id,
-                        "client_secret": client.secret,
-                        "grant_type": "wrong grant type",
-                        "redirect_uri": client.redirect_uri,
-                        "code": "wrong code"
+                        'client_id': client.id,
+                        'client_secret': client.secret,
+                        'grant_type': 'wrong grant type',
+                        'redirect_uri': client.redirect_uri,
+                        'code': 'wrong code'
                     }
                 },
                 function(err, res, body) {
-                    assert.equal(JSON.parse(body).error, "unsupported_grant_type");
+                    assert.equal(JSON.parse(body).error, 'unsupported_grant_type');
                     done();
                 }
             );
 
         });
 
-        it("should throw an error when the auth code is missing", function(done) {
+        it('should throw an error when the auth code is missing', function(done) {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
-                    method: "POST",
+                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    method: 'POST',
                     form: {
-                        "client_id": client.id,
-                        "client_secret": client.secret,
-                        "grant_type": "authorization_code",
-                        "redirect_uri": client.redirect_uri
+                        'client_id': client.id,
+                        'client_secret': client.secret,
+                        'grant_type': 'authorization_code',
+                        'redirect_uri': client.redirect_uri
                     }
                 },
                 function(err, res, body) {
-                    assert.equal(JSON.parse(body).error_description, "Missing required parameter: code");
+                    assert.equal(JSON.parse(body).error_description, 'Missing required parameter: code');
                     done();
                 }
             );
 
         });
 
-        it("should return a refresh token and an access token on success", function(done) {
+        it('should return a refresh token and an access token on success', function(done) {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
-                    method: "POST",
+                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    method: 'POST',
                     form: {
-                        "client_id": client.id,
-                        "client_secret": client.secret,
-                        "grant_type": "authorization_code",
-                        "redirect_uri": client.redirect_uri,
-                        "code": authCode
+                        'client_id': client.id,
+                        'client_secret': client.secret,
+                        'grant_type': 'authorization_code',
+                        'redirect_uri': client.redirect_uri,
+                        'code': authCode
                     }
                 },
                 function(err, res, body) {
@@ -294,14 +294,14 @@ describe("Wishlist API", function() {
 
         });
 
-        it("should allow the access token to access protected resources", function(done) {
+        it('should allow the access token to access protected resources', function(done) {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/protected",
-                    method: "GET",
+                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/protected',
+                    method: 'GET',
                     headers: {
-                        "Authorization": "Bearer " + accessToken
+                        'Authorization': 'Bearer ' + accessToken
                     }
                 },
                 function(err, res, body) {
@@ -313,18 +313,18 @@ describe("Wishlist API", function() {
 
         });
 
-        it("should allow the refresh token to request a new access token", function(done) {
+        it('should allow the refresh token to request a new access token', function(done) {
 
             request(
                 {
-                    url: "http://127.0.0.1:"+process.env.PORT+"/auth/token",
-                    method: "POST",
+                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    method: 'POST',
                     form: {
-                        "client_id": client.id,
-                        "client_secret": client.secret,
-                        "grant_type": "refresh_token",
-                        "redirect_uri": client.redirect_uri,
-                        "refresh_token": refreshToken
+                        'client_id': client.id,
+                        'client_secret': client.secret,
+                        'grant_type': 'refresh_token',
+                        'redirect_uri': client.redirect_uri,
+                        'refresh_token': refreshToken
                     }
                 },
                 function(err, res, body) {
@@ -342,9 +342,9 @@ describe("Wishlist API", function() {
 
 });
 
-describe("Docs", () => {
+describe('Docs', () => {
 
-    it("should present the user with the docs page", (done) => {
+    it('should present the user with the docs page', (done) => {
 
         request(`http://127.0.0.1:${process.env.PORT}/docs`, (err, res, body) => {
             assert.equal(res.statusCode, 200);

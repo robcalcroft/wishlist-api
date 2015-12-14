@@ -6,11 +6,11 @@
 
 // ES5 code here, subsequent requires are done using Babel
 
-require("babel-core/register");
+require('babel-core/register');
 
 // Load environment
-require("dotenv").load();
+require('dotenv').load();
 
-console.log("\n> Starting up");
+console.log('\n> Starting up');
 
-require("./lib/controllers/wishlist");
+require('./lib/controllers/wishlist');
