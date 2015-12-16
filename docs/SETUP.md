@@ -10,7 +10,7 @@
   ```sql
   create user wishlist with SUPERUSER CREATEROLE CREATEDB REPLICATION PASSWORD '<NEWPASSWORD>';
   ```
-7. Build the database by `cd bin && ./db-create` (rebuild using `./db-rebuild` and destroy using `./db-destroy`)
+7. Build the database by `npm run db-build` (rebuild using `npm run db-rebuild`, destroy using `npm run db-destroy` and seed for testing with `npm run db-seed`)
 
 ##Startup
 **development**
@@ -20,7 +20,7 @@ npm start
 
 **production (using [pm2](https://github.com/Unitech/pm2))**
 ```bash
-NODE_PATH=./lib pm2 start index.js
+NODE_PATH=./lib pm2 start index.js --name wishlist-api
 ```
 
 ##Testing

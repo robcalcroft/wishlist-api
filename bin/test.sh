@@ -3,7 +3,7 @@
 # Build test DB
 cd bin
 echo "> Building database"
-./db-create.sh wishlist-test > /dev/null
+./db-build.sh wishlist-test > /dev/null
 cd ..
 
 # Start server and cache PID

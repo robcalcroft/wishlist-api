@@ -6,7 +6,11 @@
   "scripts": {
     "test": "bin/test.sh",
     "start": "export NODE_PATH=./lib && nodemon || node index.js",
-    "docs": "node_modules/.bin/apidoc -i lib/routes/ -o docs/apidoc && node_modules/.bin/apidoc-markdown -p docs/apidoc -o docs/API.md"
+    "docs": "node_modules/.bin/apidoc -i lib/routes/ -o docs/apidoc && node_modules/.bin/apidoc-markdown -p docs/apidoc -o docs/API.md",
+    "db-build": "cd bin && ./db-build.sh",
+    "db-destroy": "cd bin && ./db-destroy.sh",
+    "db-rebuild": "cd bin && ./db-rebuild.sh",
+    "db-seed": "cd bin && ./db-seed.sh"
   },
   "repository": {
     "type": "git",
