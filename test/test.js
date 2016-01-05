@@ -86,19 +86,26 @@ describe('Wishlist API', () => {
         });
     });
 
-    // describe('Abuse Prevention', () => {
-    //
-    //     it('should throw a 429 error after too many request', () => {
-    //
-    //         request(
-    //             {
-    //                 url: ''
-    //             }
-    //         )
-    //
-    //     });
-    //
-    // });
+    describe('Abuse Prevention', () => {
+
+        it('should throw a 429 error after too many request', (done) => {
+
+            let reqCount = 1;
+
+            (function reqCall() {
+                request(`http://localhost:${process.env.PORT}/docs`, (err, res) => {
+                    if(reqCount > 5) {
+                        assert.equal(res.statusCode, 429);
+                        return done();
+                    }
+                    reqCount++;
+                    reqCall();
+                });
+            })();
+
+        });
+
+    });
 
     describe('OAuth2', () => {
 
@@ -360,10 +367,14 @@ describe('Docs', () => {
 
     it('should present the user with the docs page', (done) => {
 
-        request(`http://127.0.0.1:${process.env.PORT}/docs`, (err, res, body) => {
-            assert.equal(res.statusCode, 200);
-            done();
-        });
+        // Timeout used becuase we test this route for the 429 tests and need
+        // to let it expire again before we test it.
+        setTimeout(() => {
+            request(`http://127.0.0.1:${process.env.PORT}/docs`, (err, res, body) => {
+                assert.equal(res.statusCode, 200);
+                done();
+            });
+        }, 750);
 
     });
 
