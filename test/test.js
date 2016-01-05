@@ -33,19 +33,19 @@ jshint({
 
 
 // Unit testing
-describe('Utilities testing', function() {
+describe('Utilities testing', () => {
 
-    describe('Token generation', function() {
+    describe('Token generation', () => {
 
-        it('should generate a token', function() {
+        it('should generate a token', () => {
             assert(tokenOrSecret());
         });
 
-        it('should generate a token of length 75 when no parameters are provided', function() {
+        it('should generate a token of length 75 when no parameters are provided', () => {
             assert.equal(tokenOrSecret().length, 75);
         });
 
-        it('should generate a token of a specified length when provided to the function', function() {
+        it('should generate a token of a specified length when provided to the function', () => {
             assert.equal(tokenOrSecret(100).length, 100);
         });
 
@@ -56,9 +56,9 @@ describe('Utilities testing', function() {
 
     });
 
-    describe('UUID generation', function() {
+    describe('UUID generation', () => {
 
-        it('should generate a uuid', function() {
+        it('should generate a uuid', () => {
             assert(uuid());
         });
 
@@ -77,46 +77,60 @@ describe('Utilities testing', function() {
 
 
 // Main API Testing
-describe('Wishlist API', function() {
+describe('Wishlist API', () => {
 
-    it('should connect to the database', function(done) {
-        db.connect(function(err) {
+    it('should connect to the database', (done) => {
+        db.connect((err) => {
             assert(!err);
             done();
         });
     });
 
-    describe('OAuth2', function() {
+    // describe('Abuse Prevention', () => {
+    //
+    //     it('should throw a 429 error after too many request', () => {
+    //
+    //         request(
+    //             {
+    //                 url: ''
+    //             }
+    //         )
+    //
+    //     });
+    //
+    // });
 
-        var client = {
+    describe('OAuth2', () => {
+
+        const client = {
             id: 'f6effb0a6eaf48daf2e9588d76733592',
             secret: 'Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6',
-            redirect_uri: 'http://localhost:'+process.env.PORT+'/callback'
+            redirect_uri: `http://localhost:${process.env.PORT}/callback`
         };
 
-        var user = {
+        const user = {
             username: 'jimbojones',
             password: 'j1mb0'
         };
 
         // Maintains state
-        var cookieJar = request.jar();
+        let cookieJar = request.jar();
 
-        var authCode, refreshToken, accessToken;
+        let authCode, refreshToken, accessToken;
 
-        it('should redirect to the login screen when client opens /auth/authorize if the user isn\'t logged in', function(done) {
-            request('http://127.0.0.1:'+process.env.PORT+'/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code', function(err, res, body) {
+        it('should redirect to the login screen when client opens /auth/authorize if the user isn\'t logged in', (done) => {
+            request(`http://127.0.0.1:${process.env.PORT}/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`, (err, res, body) => {
                 assert.equal(res.client._httpMessage.path, '/auth/login');
                 done();
             });
         });
 
-        it('should present the user with the decision screen if they\'re logged in', function(done) {
+        it('should present the user with the decision screen if they\'re logged in', (done) => {
 
             request(
                 {
                     method: 'POST',
-                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/login',
+                    url: `http://127.0.0.1:${process.env.PORT}/auth/login`,
                     // This data is included in the SQL dummy data
                     form: {
                         'username': user.username,
@@ -124,15 +138,15 @@ describe('Wishlist API', function() {
                     },
                     jar: cookieJar
                 },
-                function(err, res, body) {
+                (err, res, body) => {
                     if(body !== 'Found. Redirecting to /auth/login') {
                         request(
                             {
-                                url: 'http://127.0.0.1:'+process.env.PORT+'/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code',
+                                url: `http://127.0.0.1:${process.env.PORT}/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,
                                 jar: cookieJar
                             },
-                            function(err, res, body) {
-                                assert.equal(res.client._httpMessage.path, '/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code');
+                            (err, res, body) => {
+                                assert.equal(res.client._httpMessage.path, `/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`);
                                 done();
                             }
                         );
@@ -144,15 +158,15 @@ describe('Wishlist API', function() {
 
         });
 
-        it('should call the callback with error=access_denied when user\'s decision is \'deny\'', function(done) {
+        it('should call the callback with error=access_denied when user\'s decision is \'deny\'', (done) => {
 
             request(
                 {
-                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code',
+                    url: `http://127.0.0.1:${process.env.PORT}/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,
                     jar: cookieJar
                 },
-                function(err, res, body) {
-                    var transId = body.match(/\w+(?="><input type="submit" value="Allow")/)[0];
+                (err, res, body) => {
+                    const transId = body.match(/\w+(?="><input type="submit" value="Allow")/)[0];
 
                     request(
                         {
@@ -164,7 +178,7 @@ describe('Wishlist API', function() {
                                 'cancel': 'Deny'
                             }
                         },
-                        function(err, res, body) {
+                        (err, res, body) => {
                             assert.equal(/error=access_denied/.test(body), true);
                             done();
                         }
@@ -174,26 +188,26 @@ describe('Wishlist API', function() {
 
         });
 
-        it('should call the callback with the authorization code when the user\'s decsion is \'allow\'', function(done) {
+        it('should call the callback with the authorization code when the user\'s decsion is \'allow\'', (done) => {
 
             request(
                 {
-                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/authorize?client_id=' + client.id + '&redirect_uri=' + client.redirect_uri + '&response_type=code',
+                    url: `http://127.0.0.1:${process.env.PORT}/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,
                     jar: cookieJar
                 },
-                function(err, res, body) {
-                    var transId = body.match(/\w+(?="><input type="submit" value="Allow")/)[0];
+                (err, res, body) => {
+                    const transId = body.match(/\w+(?="><input type="submit" value="Allow")/)[0];
 
                     request(
                         {
                             method: 'POST',
-                            url: 'http://127.0.0.1:'+process.env.PORT+'/auth/decision',
+                            url: `http://127.0.0.1:${process.env.PORT}/auth/decision`,
                             jar: cookieJar,
                             form: {
                                 'transaction_id': transId
                             }
                         },
-                        function(err, res, body) {
+                        (err, res, body) => {
                             assert.equal(/code=/.test(body), true);
                             authCode = body.match(/code=\w+/)[0].split('=')[1];
                             done();
@@ -204,18 +218,18 @@ describe('Wishlist API', function() {
 
         });
 
-        it('should return a 401 status when no client id or secret is incorrect', function(done) {
+        it('should return a 401 status when no client id or secret is incorrect', (done) => {
 
             request(
                 {
-                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': 'wrong',
                         'client_secret': 'wrong'
                     }
                 },
-                function(err, res, body) {
+                (err, res, body) => {
                     assert.equal(res.statusCode, 401);
                     done();
                 }
@@ -223,11 +237,11 @@ describe('Wishlist API', function() {
 
         });
 
-        it('should throw a grant_type error when incorrect grant type is specified', function(done) {
+        it('should throw a grant_type error when incorrect grant type is specified', (done) => {
 
             request(
                 {
-                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': client.id,
@@ -237,7 +251,7 @@ describe('Wishlist API', function() {
                         'code': 'wrong code'
                     }
                 },
-                function(err, res, body) {
+                (err, res, body) => {
                     assert.equal(JSON.parse(body).error, 'unsupported_grant_type');
                     done();
                 }
@@ -245,11 +259,11 @@ describe('Wishlist API', function() {
 
         });
 
-        it('should throw an error when the auth code is missing', function(done) {
+        it('should throw an error when the auth code is missing', (done) => {
 
             request(
                 {
-                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': client.id,
@@ -258,7 +272,7 @@ describe('Wishlist API', function() {
                         'redirect_uri': client.redirect_uri
                     }
                 },
-                function(err, res, body) {
+                (err, res, body) => {
                     assert.equal(JSON.parse(body).error_description, 'Missing required parameter: code');
                     done();
                 }
@@ -266,11 +280,11 @@ describe('Wishlist API', function() {
 
         });
 
-        it('should return a refresh token and an access token on success', function(done) {
+        it('should return a refresh token and an access token on success', (done) => {
 
             request(
                 {
-                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': client.id,
@@ -280,7 +294,7 @@ describe('Wishlist API', function() {
                         'code': authCode
                     }
                 },
-                function(err, res, body) {
+                (err, res, body) => {
                     var result = JSON.parse(body);
                     assert(result.access_token);
                     assert(result.refresh_token);
@@ -294,17 +308,17 @@ describe('Wishlist API', function() {
 
         });
 
-        it('should allow the access token to access protected resources', function(done) {
+        it('should allow the access token to access protected resources', (done) => {
 
             request(
                 {
-                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/protected',
+                    url: `http://127.0.0.1:${process.env.PORT}/auth/protected`,
                     method: 'GET',
                     headers: {
-                        'Authorization': 'Bearer ' + accessToken
+                        'Authorization': `Bearer ${accessToken}`
                     }
                 },
-                function(err, res, body) {
+                (err, res, body) => {
                     assert.notEqual(res.statusCode, 401);
                     assert(JSON.parse(body).success);
                     done();
@@ -313,11 +327,11 @@ describe('Wishlist API', function() {
 
         });
 
-        it('should allow the refresh token to request a new access token', function(done) {
+        it('should allow the refresh token to request a new access token', (done) => {
 
             request(
                 {
-                    url: 'http://127.0.0.1:'+process.env.PORT+'/auth/token',
+                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': client.id,
@@ -327,8 +341,8 @@ describe('Wishlist API', function() {
                         'refresh_token': refreshToken
                     }
                 },
-                function(err, res, body) {
-                    var result = JSON.parse(body);
+                (err, res, body) => {
+                    const result = JSON.parse(body);
                     assert(result.access_token);
                     assert.notEqual(accessToken, result.access_token);
 
