@@ -1,5 +1,7 @@
 {
     "errors.404": "This route does not lead anywhere, consult the documentation for help https://wishlist.com/api/docs",
+    "errors.400": "Bad request",
+    "errors.200": "Success",
     "errors.tokenExpired": "Token expired",
     "errors.noUserFound": "No username found",
     "errors.incorrectPassword": "Incorrect password"
