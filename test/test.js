@@ -8,24 +8,6 @@ import dotenv from 'dotenv';
 
 dotenv.load();
 
-// ***************************************
-//    Code taken from lib/controllers/db
-//         For testing purposes
-// ***************************************
-
-// Test config
-if(process.env.WISHLIST_TEST) {
-    process.env.DB_NAME = 'wishlist-test';
-}
-
-let db = new pg.Client({
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
-
-// ***************************************
-
 // JSHint
 jshint({
     title: 'Wishlist JSHint'
@@ -78,13 +60,6 @@ describe('Utilities testing', () => {
 
 // Main API Testing
 describe('Wishlist API', () => {
-
-    it('should connect to the database', (done) => {
-        db.connect((err) => {
-            assert(!err);
-            done();
-        });
-    });
 
     describe('Abuse Prevention', () => {
 
