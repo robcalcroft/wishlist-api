@@ -7,6 +7,9 @@ A vendor agnostic wishlist creator
 	- [Bearer token testing](#bearer-token-testing)
 	- [Obtaining a token](#obtaining-a-token)
 	
+- [Wishlist](#wishlist)
+	- [Obtain wishlist metadata](#obtain-wishlist-metadata)
+	
 
 
 # Authentication
@@ -59,7 +62,7 @@ Success - Response:
 ```
 HTTP/1.1 200 OK
 {
-  "success": "true"
+  'success': 'true'
 }
 ```
 ## Obtaining a token
@@ -86,24 +89,66 @@ Success - auth code grant type
 
 ```
 {
-    "access_token": "<ACCESSTOKEN>",
-    "refreshToken": "<REFRESHTOKEN>",
-    "expires_in": "<EXPIRESIN>",
-    "grant_type": "Bearer"
+    'access_token': '<ACCESSTOKEN>',
+    'refreshToken': '<REFRESHTOKEN>',
+    'expires_in': '<EXPIRESIN>',
+    'grant_type': 'Bearer'
 }
 ```
 Success - refresh token grant type
 
 ```
 {
-    "access_token": "<ACCESSTOKEN>",
-    "expires_in": "<EXPIRESIN>",
-    "grant_type": "Bearer"
+    'access_token': '<ACCESSTOKEN>',
+    'expires_in': '<EXPIRESIN>',
+    'grant_type': 'Bearer'
 }
 ```
 ### Error Response
 
 Error
+
+```
+401 Unauthorized
+```
+# Wishlist
+
+## Obtain wishlist metadata
+
+<p>Gives metadata about each wishlist from the search</p> 
+
+	GET /wishlist
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| id			| <p>String</p> 			|  <p>The wishlist ID to search upon</p> 							|
+| user_id			| <p>String</p> 			|  <p>Grab all wishlists for the corresponding user</p> 							|
+| order			| <p>String</p> 			| **optional** <p>The order of the results</p> 							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    'results': [{
+        'wishlistId': 1,
+        'userId': 2,
+        'title': 'Main List',
+        'dateCreated': '2016-01-06 23:23:01.115716',
+        'isDefault': true,
+        'imageURI': 'http://image.com/image.png'
+    }],
+    'message': 'success'
+}
+```
+### Error Response
+
+Auth Error
 
 ```
 401 Unauthorized
