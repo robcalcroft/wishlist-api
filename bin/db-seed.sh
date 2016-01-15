@@ -11,4 +11,7 @@ echo "> Client data inserted"
 psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../test/wishlist-data.sql > /dev/null
 echo "> Wishlist data inserted"
 
+psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../test/wishlist-item-data.sql > /dev/null
+echo "> Wishlist item data inserted"
+
 echo "> Data seeded from tests/*.sql"

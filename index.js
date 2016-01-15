@@ -14,4 +14,4 @@ require('dotenv').load();
 
 console.log('> 🚜  Transpiling code');
 
-require('./lib/controllers/wishlist');
+require('./lib/controllers');

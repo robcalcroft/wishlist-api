@@ -42,6 +42,7 @@
     "pg": "^4.4.2",
     "rand-token": "^0.2.1",
     "rate-limiter": "^0.2.0",
+    "request": "^2.67.0",
     "sql": "^0.60.0"
   },
   "devDependencies": {
@@ -55,9 +56,9 @@
   },
   "apidoc": {
     "name": "Wishlist Public API Docs",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "A vendor agnostic wishlist creator",
     "title": "Wishlist Public API Docs",
-    "url": "https://api.wishlist.com"
+    "url": "http://wishlist.pw/api/<version>"
   }
 }

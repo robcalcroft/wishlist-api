@@ -1,14 +1,18 @@
-# Wishlist Public API Docs v0.0.0
+# Wishlist Public API Docs v1.0.0
 
 A vendor agnostic wishlist creator
 
 - [Authentication](#authentication)
 	- [User authorization](#user-authorization)
-	- [Bearer token testing](#bearer-token-testing)
 	- [Obtaining a token](#obtaining-a-token)
+	
+- [Utilities](#utilities)
+	- [Bearer token testing](#bearer-token-testing)
+	- [Obtain metadata about a URI](#obtain-metadata-about-a-uri)
 	
 - [Wishlist](#wishlist)
 	- [Obtain wishlist metadata](#obtain-wishlist-metadata)
+	- [Obtain detailed wishlist items](#obtain-detailed-wishlist-items)
 	
 
 
@@ -42,28 +46,6 @@ Error
 
 ```
 GET http://example.com/callback?error=access_denied
-```
-## Bearer token testing
-
-<p>A route to allow clients to test their bearer tokens</p> 
-
-	GET /auth/protected
-
-### Headers
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| Authorization			| Token			|  <p>Your access token</p> 							|
-
-### Success Response
-
-Success - Response:
-
-```
-HTTP/1.1 200 OK
-{
-  'success': 'true'
-}
 ```
 ## Obtaining a token
 
@@ -111,6 +93,83 @@ Error
 ```
 401 Unauthorized
 ```
+# Utilities
+
+## Bearer token testing
+
+<p>A route to allow clients to test their bearer tokens</p> 
+
+	GET /auth/protected
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p> 							|
+
+### Success Response
+
+Success - Response:
+
+```
+HTTP/1.1 200 OK
+{
+  'statusCode': 200
+  'message': 'Success'
+}
+```
+### Error Response
+
+Auth Error
+
+```
+401 Unauthorized
+```
+## Obtain metadata about a URI
+
+<p>Used for front-end field population for images, description etc</p> 
+
+	GET /uri-metadata
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p> 							|
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| uri			| <p>String</p> 			|  <p>The URL to grab meta data from</p> 							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    'results': [{
+        'statusCode': 200,
+        'results': {
+             title: 'Fast Car',
+             description: 'A very fast car'.
+             image: 'http://example.com/image.png',
+             provider_name: 'Example'
+             uri: 'http://example.com/get-car-picture'
+        }
+    }],
+    'message': 'Success'
+}
+```
+### Error Response
+
+Auth Error
+
+```
+401 Unauthorized
+```
 # Wishlist
 
 ## Obtain wishlist metadata
@@ -119,12 +178,17 @@ Error
 
 	GET /wishlist
 
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p> 							|
 
 ### Parameters
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| id			| <p>String</p> 			|  <p>The wishlist ID to search upon</p> 							|
+| wishlist_id			| <p>String</p> 			|  <p>The wishlist ID to search upon</p> 							|
 | user_id			| <p>String</p> 			|  <p>Grab all wishlists for the corresponding user</p> 							|
 | order			| <p>String</p> 			| **optional** <p>The order of the results</p> 							|
 
@@ -142,6 +206,60 @@ Success - results
         'dateCreated': '2016-01-06 23:23:01.115716',
         'isDefault': true,
         'imageURI': 'http://image.com/image.png'
+    }],
+    'message': 'success'
+}
+```
+### Error Response
+
+Auth Error
+
+```
+401 Unauthorized
+```
+## Obtain detailed wishlist items
+
+<p>Gives all entries to a wish list</p> 
+
+	GET /wishlist/item
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p> 							|
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| wishlist_id			| <p>String</p> 			|  <p>The wishlist ID to search upon</p> 							|
+| price_low			| <p>Int</p> 			| **optional** <p>Price filtering between values - mandatory if companion option is specified.</p> 							|
+| price_high			| <p>Int</p> 			| **optional** <p>Price filtering between values - mandatory if companion option is specified.</p> 							|
+| priority			| <p>Int</p> 			| **optional** <p>Filter the priority of results. Multiples can be specified by a comma: priority=5,4</p> 							|
+| order			| <p>String</p> 			| **optional** <p>The order of the results</p> 							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    'results': [{
+        'userId': 1,
+        'wishlistId': 1,
+        'wishlistItemId': 4,
+        'title': 'iPhone 5',
+        'description': 'Good-ish phone',
+        'sourceURI': 'http://www.amazon.co.uk/gp/product/B0117RGG8E/ref=s9_simh_gw_p23_d0_i1?pf_rd_m=A3P5ROKL5A1OLE&pf_rd_s=desktop-1&pf_rd_r=06WRCG8HYERKXBE7XX2A&pf_rd_t=36701&pf_rd_p=577047927&pf_rd_i=desktop',
+        'sourceName': 'Amazon',
+        'imageURI': 'https://www.drupal.org/files/issues/header_1.png',
+        'price': 50,
+        'priceCurrency': 'stirling',
+        'priceCurrencySymbol': '£',
+        'userPriority': 3,
+        'dateCreated': '2016-01-13T20:25:46.939Z'
     }],
     'message': 'success'
 }

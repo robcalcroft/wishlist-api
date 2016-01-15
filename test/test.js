@@ -102,9 +102,9 @@ describe('Wishlist API', () => {
 
         let authCode, refreshToken, accessToken;
 
-        it('should redirect to the login screen when client opens /auth/authorize if the user isn\'t logged in', (done) => {
-            request(`http://127.0.0.1:${process.env.PORT}/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`, (err, res, body) => {
-                assert.equal(res.client._httpMessage.path, '/auth/login');
+        it('should redirect to the login screen when client opens /api/1/auth/authorize if the user isn\'t logged in', (done) => {
+            request(`http://127.0.0.1:${process.env.PORT}/api/1/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`, (err, res, body) => {
+                assert.equal(res.client._httpMessage.path, '/api/1/auth/login');
                 done();
             });
         });
@@ -114,7 +114,7 @@ describe('Wishlist API', () => {
             request(
                 {
                     method: 'POST',
-                    url: `http://127.0.0.1:${process.env.PORT}/auth/login`,
+                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/login`,
                     // This data is included in the SQL dummy data
                     form: {
                         'username': user.username,
@@ -123,19 +123,19 @@ describe('Wishlist API', () => {
                     jar: cookieJar
                 },
                 (err, res, body) => {
-                    if(body !== 'Found. Redirecting to /auth/login') {
+                    if(body !== 'Found. Redirecting to /api/1/auth/login') {
                         request(
                             {
-                                url: `http://127.0.0.1:${process.env.PORT}/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,
+                                url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,
                                 jar: cookieJar
                             },
                             (err, res, body) => {
-                                assert.equal(res.client._httpMessage.path, `/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`);
+                                assert.equal(res.client._httpMessage.path, `/api/1/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`);
                                 done();
                             }
                         );
                     } else {
-                        assert.fail(body, 'Found. Redirecting to /auth/login', 'Expects not to redirect to /auth/login', '!=');
+                        assert.fail(body, 'Found. Redirecting to /api/1/auth/login', 'Expects not to redirect to /api/1/auth/login', '!=');
                     }
                 }
             );
@@ -146,7 +146,7 @@ describe('Wishlist API', () => {
 
             request(
                 {
-                    url: `http://127.0.0.1:${process.env.PORT}/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,
+                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,
                     jar: cookieJar
                 },
                 (err, res, body) => {
@@ -155,7 +155,7 @@ describe('Wishlist API', () => {
                     request(
                         {
                             method: 'POST',
-                            url: 'http://127.0.0.1:'+process.env.PORT+'/auth/decision',
+                            url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/decision`,
                             jar: cookieJar,
                             form: {
                                 'transaction_id': transId,
@@ -176,7 +176,7 @@ describe('Wishlist API', () => {
 
             request(
                 {
-                    url: `http://127.0.0.1:${process.env.PORT}/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,
+                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,
                     jar: cookieJar
                 },
                 (err, res, body) => {
@@ -185,7 +185,7 @@ describe('Wishlist API', () => {
                     request(
                         {
                             method: 'POST',
-                            url: `http://127.0.0.1:${process.env.PORT}/auth/decision`,
+                            url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/decision`,
                             jar: cookieJar,
                             form: {
                                 'transaction_id': transId
@@ -206,7 +206,7 @@ describe('Wishlist API', () => {
 
             request(
                 {
-                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
+                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': 'wrong',
@@ -225,7 +225,7 @@ describe('Wishlist API', () => {
 
             request(
                 {
-                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
+                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': client.id,
@@ -247,7 +247,7 @@ describe('Wishlist API', () => {
 
             request(
                 {
-                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
+                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': client.id,
@@ -268,7 +268,7 @@ describe('Wishlist API', () => {
 
             request(
                 {
-                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
+                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': client.id,
@@ -296,7 +296,7 @@ describe('Wishlist API', () => {
 
             request(
                 {
-                    url: `http://127.0.0.1:${process.env.PORT}/auth/protected`,
+                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/protected`,
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
@@ -304,7 +304,6 @@ describe('Wishlist API', () => {
                 },
                 (err, res, body) => {
                     assert.notEqual(res.statusCode, 401);
-                    assert(JSON.parse(body).success);
                     done();
                 }
             );
@@ -315,7 +314,7 @@ describe('Wishlist API', () => {
 
             request(
                 {
-                    url: `http://127.0.0.1:${process.env.PORT}/auth/token`,
+                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/token`,
                     method: 'POST',
                     form: {
                         'client_id': client.id,
@@ -347,7 +346,7 @@ describe('Docs', () => {
         // Timeout used becuase we test this route for the 429 tests and need
         // to let it expire again before we test it.
         setTimeout(() => {
-            request(`http://127.0.0.1:${process.env.PORT}/docs`, (err, res, body) => {
+            request(`http://127.0.0.1:${process.env.PORT}/api/docs`, (err, res, body) => {
                 assert.equal(res.statusCode, 200);
                 done();
             });

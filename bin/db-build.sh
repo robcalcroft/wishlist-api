@@ -37,3 +37,7 @@ echo "> Session table created"
 # Wishlist table
 psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../lib/models/sql/Wishlist.sql > /dev/null
 echo "> Wishlist table created"
+
+# Wishlist item table
+psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../lib/models/sql/WishlistItem.sql > /dev/null
+echo "> Wishlist item table created"
