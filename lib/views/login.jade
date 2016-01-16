@@ -6,7 +6,7 @@ head
 body
     p Please login
     h3 #{message}
-    form(action='/auth/login', method='POST')
+    form(action='/api/1/auth/login', method='POST')
         input(type='text', placeholder='Username', name='username')
         input(type='password', placeholder='Password', name='password')
         input(type='submit')
