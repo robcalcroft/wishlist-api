@@ -13,6 +13,7 @@ A vendor agnostic wishlist creator
 - [Wishlist](#wishlist)
 	- [Obtain wishlist metadata](#obtain-wishlist-metadata)
 	- [Obtain detailed wishlist items](#obtain-detailed-wishlist-items)
+	- [Create new wishlist for user](#create-new-wishlist-for-user)
 	
 
 
@@ -151,14 +152,11 @@ Success - results
 {
     'statusCode': 200,
     'results': [{
-        'statusCode': 200,
-        'results': {
-             title: 'Fast Car',
-             description: 'A very fast car'.
-             image: 'http://example.com/image.png',
-             provider_name: 'Example'
-             uri: 'http://example.com/get-car-picture'
-        }
+        title: 'Fast Car',
+        description: 'A very fast car'.
+        image: 'http://example.com/image.png',
+        provider_name: 'Example'
+        uri: 'http://example.com/get-car-picture'
     }],
     'message': 'Success'
 }
@@ -262,6 +260,44 @@ Success - results
         'dateCreated': '2016-01-13T20:25:46.939Z'
     }],
     'message': 'success'
+}
+```
+### Error Response
+
+Auth Error
+
+```
+401 Unauthorized
+```
+## Create new wishlist for user
+
+<p>Creates a new wishlist for the user with details</p> 
+
+	POST /wishlist
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p> 							|
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| user_id			| <p>String</p> 			|  <p>The user id to add the wishlist to TODO Make it restricted to req.user</p> 							|
+| title			| <p>String</p> 			|  <p>The title of the wishlist</p> 							|
+| is_default			| <p>String</p> 			| **optional** <p>Set the wishlist as the default wishlist for the user A header image for the list</p> 							|
+| image_uri			| <p>String</p> 			| **optional** <p>A header image for the list</p> 							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    'message': 'Wishlist successfully added'
 }
 ```
 ### Error Response
