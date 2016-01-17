@@ -6,6 +6,9 @@ A vendor agnostic wishlist creator
 	- [User authorization](#user-authorization)
 	- [Obtaining a token](#obtaining-a-token)
 	
+- [User](#user)
+	- [Search for users](#search-for-users)
+	
 - [Utilities](#utilities)
 	- [Bearer token testing](#bearer-token-testing)
 	- [Obtain metadata about a URI](#obtain-metadata-about-a-uri)
@@ -13,7 +16,7 @@ A vendor agnostic wishlist creator
 - [Wishlist](#wishlist)
 	- [Obtain wishlist metadata](#obtain-wishlist-metadata)
 	- [Obtain detailed wishlist items](#obtain-detailed-wishlist-items)
-	- [Create new wishlist for user](#create-new-wishlist-for-user)
+	- [Create new wishlist](#create-new-wishlist)
 	
 
 
@@ -90,6 +93,52 @@ Success - refresh token grant type
 ### Error Response
 
 Error
+
+```
+401 Unauthorized
+```
+# User
+
+## Search for users
+
+<p>Search based on email address or username. Email address must be in full</p> 
+
+	POST /user/search
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p> 							|
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| email_address			| <p>String</p> 			|  <p>Email address of the user to search</p> 							|
+| username			| <p>String</p> 			|  <p>Username of the user to search</p> 							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    result: [
+        {
+            userId: 1,
+            firstName: 'John',
+            lastName: 'Smith',
+            username: 'johnsmith1'
+        }
+    ],
+    'message': 'Success, user(s) found'
+}
+```
+### Error Response
+
+Auth Error
 
 ```
 401 Unauthorized
@@ -172,7 +221,7 @@ Auth Error
 
 ## Obtain wishlist metadata
 
-<p>Gives metadata about each wishlist from the search</p> 
+<p>Gives metadata about each wishlist from the search. If the user id searched for is not the currently authenticated user, only publically viewable wishlists will be shown.</p> 
 
 	GET /wishlist
 
@@ -188,6 +237,8 @@ Auth Error
 |---------|-----------|--------------------------------------|
 | wishlist_id			| <p>String</p> 			|  <p>The wishlist ID to search upon</p> 							|
 | user_id			| <p>String</p> 			|  <p>Grab all wishlists for the corresponding user</p> 							|
+| email_address			| <p>String</p> 			|  <p>Grab all wishlists for the corresponding user</p> 							|
+| username			| <p>String</p> 			|  <p>Grab all wishlists for the corresponding user</p> 							|
 | order			| <p>String</p> 			| **optional** <p>The order of the results</p> 							|
 
 ### Success Response
@@ -203,7 +254,8 @@ Success - results
         'title': 'Main List',
         'dateCreated': '2016-01-06 23:23:01.115716',
         'isDefault': true,
-        'imageURI': 'http://image.com/image.png'
+        'imageURI': 'http://image.com/image.png',
+        'privacy': 'Public'
     }],
     'message': 'success'
 }
@@ -269,9 +321,9 @@ Auth Error
 ```
 401 Unauthorized
 ```
-## Create new wishlist for user
+## Create new wishlist
 
-<p>Creates a new wishlist for the user with details</p> 
+<p>Creates a new wishlist for the authenticated user</p> 
 
 	POST /wishlist
 
@@ -285,10 +337,10 @@ Auth Error
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| user_id			| <p>String</p> 			|  <p>The user id to add the wishlist to TODO Make it restricted to req.user</p> 							|
 | title			| <p>String</p> 			|  <p>The title of the wishlist</p> 							|
 | is_default			| <p>String</p> 			| **optional** <p>Set the wishlist as the default wishlist for the user A header image for the list</p> 							|
 | image_uri			| <p>String</p> 			| **optional** <p>A header image for the list</p> 							|
+| privacy			| <p>String</p> 			| **optional** <p>The visibility of the wishlist to other users</p> 							|
 
 ### Success Response
 
@@ -297,7 +349,7 @@ Success - results
 ```
 {
     'statusCode': 200,
-    'message': 'Wishlist successfully added'
+    'message': 'Wishlist successfully created'
 }
 ```
 ### Error Response
