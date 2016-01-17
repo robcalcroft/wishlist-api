@@ -6,5 +6,5 @@ CREATE TABLE "Wishlist" (
     "isDefault" boolean NOT NULL,
     "imageURI" varchar(500),
     "privacy" varchar(500) NOT NULL,
-    CONSTRAINT chk_privacy CHECK (privacy IN ('Public', 'Private'))
+    CONSTRAINT chk_privacy CHECK (privacy IN ('public', 'private'))
 );
