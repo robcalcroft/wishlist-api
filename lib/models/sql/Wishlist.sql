@@ -4,5 +4,7 @@ CREATE TABLE "Wishlist" (
     "title" varchar(100) NOT NULL UNIQUE,
     "dateCreated" timestamp DEFAULT CURRENT_TIMESTAMP,
     "isDefault" boolean NOT NULL,
-    "imageURI" varchar(500)
+    "imageURI" varchar(500),
+    "privacy" varchar(500) NOT NULL,
+    CONSTRAINT chk_privacy CHECK (privacy IN ('Public', 'Private'))
 );
