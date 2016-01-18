@@ -150,7 +150,7 @@ describe('Wishlist API', () => {
                     jar: cookieJar
                 },
                 (err, res, body) => {
-                    const transId = body.match(/\w+(?="><input type="submit" value="Allow")/)[0];
+                    const transId = body.match(/\w+(?="><div id="allow_submit")/)[0];
 
                     request(
                         {
@@ -180,7 +180,7 @@ describe('Wishlist API', () => {
                     jar: cookieJar
                 },
                 (err, res, body) => {
-                    const transId = body.match(/\w+(?="><input type="submit" value="Allow")/)[0];
+                    const transId = body.match(/\w+(?="><div id="allow_submit")/)[0];
 
                     request(
                         {

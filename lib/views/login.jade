@@ -1,14 +1,29 @@
 doctype
 html(lang='en')
-head
-    meta(charset='UTF-8')
-    title OAuth2
+    include ./header.jade
 body
-    p Please login
-    h3 #{message}
-    form(action='/api/1/auth/login', method='POST')
-        input(type='text', placeholder='Username', name='username')
-        input(type='password', placeholder='Password', name='password')
-        input(type='submit')
+    .container
+        div(class='row', style='padding-top: 25vh;')
+        h3(class='blue-grey-text text-darken-3') Log in
+        if message.length !== 0
+            div(class='card-panel red lighten-2')    
+                h6(class='red-text text-lighten-5') #{message}
+        .row
+            form(action='/api/1/auth/login', method='POST',class='col s12')
+                .row
+                    div(class='input-field col s6')
+                        i(class='material-icons prefix') perm_identity
+                        input(type='text', name='username', id='username', autofocus, required)
+                        label(for='username') Username
+                    div(class='input-field col s6') 
+                        i(class='material-icons prefix') lock_outline   
+                        input(type='password', name='password', id='password', required)
+                        label(for='password') Password
+                .row
+                    div(class='input-field col s12')
+                        button(class='waves-effect waves-light btn', type='submit') Log in
+        
+        include ./footer.jade
+    
         
     
