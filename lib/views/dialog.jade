@@ -1,7 +1,7 @@
 - var emailHash = md5(user.emailAddress);
 doctype
 html(lang='en')
-    include ./header.jade
+    include ./includes/header.jade
 body
     .container
         div(class='row', style='padding-top:10vh;')
@@ -21,5 +21,5 @@ body
                                         button(class='waves-effect waves-light btn', type='submit') Allow
                                     div(class='col offset-sm3')
                                         button(class='waves-effect waves-light btn', type='submit', name='cancel' value='Deny') Deny
-        include ./footer.jade
+        include ./includes/footer.jade
     
