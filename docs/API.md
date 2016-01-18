@@ -7,6 +7,7 @@ A vendor agnostic wishlist creator
 	- [Obtaining a token](#obtaining-a-token)
 	
 - [User](#user)
+	- [Authenticated user details](#authenticated-user-details)
 	- [Search for users](#search-for-users)
 	
 - [Utilities](#utilities)
@@ -99,11 +100,51 @@ Error
 ```
 # User
 
+## Authenticated user details
+
+<p>Get all details for the currently authenticated user.</p> 
+
+	GET /user
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p> 							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    result: [
+        {
+            'userId': 1,
+            'firstName': 'John',
+            'lastName': 'Smith',
+            'username': 'johnsmith1',
+            'emailAddress': 'john@smith.com',
+            'DOB': '12/12/1990',
+            'dateCreated': '2016-01-06 23:23:01.115716'
+        }
+    ],
+    'message': 'Success'
+}
+```
+### Error Response
+
+Auth Error
+
+```
+401 Unauthorized
+```
 ## Search for users
 
 <p>Search based on email address or username. Email address must be in full</p> 
 
-	POST /user/search
+	GET /user/search
 
 ### Headers
 
@@ -255,7 +296,7 @@ Success - results
         'dateCreated': '2016-01-06 23:23:01.115716',
         'isDefault': true,
         'imageURI': 'http://image.com/image.png',
-        'privacy': 'Public'
+        'privacy': 'public'
     }],
     'message': 'success'
 }
