@@ -5,11 +5,14 @@ body
     .container
         div(class='row', style='padding-top: 25vh;')
         h3(class='blue-grey-text text-darken-3') Log in
-        if message.length !== 0
+        if error.length !== 0
             div(class='card-panel red lighten-2')    
-                h6(class='red-text text-lighten-5') #{message}
+                h6(class='red-text text-lighten-5') #{error}
+        if user_create_success.length !== 0
+            div(class='card-panel green lighten-2')    
+                h6(class='green-text text-lighten-5') #{user_create_success[0]}
         .row
-            form(action='/api/1/auth/login', method='POST',class='col s12')
+            form(action='/api/#{apiVersion}/auth/login', method='POST',class='col s12')
                 .row
                     div(class='input-field col s6')
                         i(class='material-icons prefix') perm_identity

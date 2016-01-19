@@ -1,0 +1,44 @@
+- if(fieldPrefill.length > 0) {
+-     fieldPrefill = fieldPrefill[0]   
+- }
+doctype
+html(lang='en')
+    include ./includes/header.jade
+body.blue
+    .container
+        div(class='row', style='padding-top: 5vh;')
+            .col.s12.m10.l8.offset-l2.offset-m1
+                .card.grey.lighten-5
+                    .card-content
+                        h3(class='blue-grey-text text-darken-3 hide-on-small-only') Sign up to Wishlist
+                        h4(class='blue-grey-text text-darken-3 hide-on-med-and-up') Sign up to Wishlist
+                        p(style='padding-bottom:2vh;', class='grey-text') Your data is kept safe. We don't share it with anyone except the authorised third-party-developers you allow.
+                        if error.length !== 0
+                            div(class='card-panel red lighten-2')    
+                                p(class='red-text text-lighten-5') #{error}
+                        form(action='/api/#{apiVersion}/auth/sign-up', method='POST')
+                            .row
+                                .input-field.col.s6
+                                    input(type='text', name='firstName', id='firstName', autofocus, value='#{fieldPrefill.firstName || ""}')
+                                    label(for='firstName') First Name
+                                .input-field.col.s6
+                                    input(type='text', name='lastName', id='lastName', value='#{fieldPrefill.lastName || ""}')
+                                    label(for='lastName') Last Name
+                            .row
+                                .input-field.col.s6
+                                    input(type='text', name='username', id='username', length='25', value='#{fieldPrefill.username || ""}')
+                                    label(for='username') Username
+                                .input-field.col.s6
+                                    input(type='password', name='password', id='password')
+                                    label(for='password') Password
+                            .row
+                                .input-field.col.s12
+                                    input(type='text', name='emailAddress', id='emailAddress', value='#{fieldPrefill.emailAddress || ""}')
+                                    label(for='emailAddress') Email Address
+                            .row
+                                .input-field.col.s12
+                                    input(type='date', name='DOB', id='DOB', class='datepicker', , value='#{fieldPrefill.DOB || ""}')
+                                    label(for='DOB') Birthday
+                            .center-align
+                                button(class='btn waves-effect waves-light', type='submit') Sign Up
+        include ./includes/footer.jade

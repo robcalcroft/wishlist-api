@@ -10,7 +10,8 @@
     "db-build": "cd bin && ./db-build.sh",
     "db-destroy": "cd bin && ./db-destroy.sh",
     "db-rebuild": "cd bin && ./db-rebuild.sh",
-    "db-seed": "cd bin && ./db-seed.sh"
+    "db-seed": "cd bin && ./db-seed.sh",
+    "compile-sass": "node_modules/.bin/node-sass --output-style compressed public/sass/materialize.scss public/dist/css/materialize.min.css"
   },
   "repository": {
     "type": "git",
