@@ -2,30 +2,34 @@ doctype
 html(lang='en')
     include ./includes/header.jade
 body
+    include ./includes/nav.jade
     .container
-        div(class='row', style='padding-top: 25vh;')
-        h3(class='blue-grey-text text-darken-3') Log in
-        if error.length !== 0
-            div(class='card-panel red lighten-2')    
-                h6(class='red-text text-lighten-5') #{error}
-        if user_create_success.length !== 0
-            div(class='card-panel green lighten-2')    
-                h6(class='green-text text-lighten-5') #{user_create_success[0]}
-        .row
-            form(action='/api/#{apiVersion}/auth/login', method='POST',class='col s12')
+        div(class='row', style='padding-top: 10vh;')
+            .col.s10.m8.l6.offset-l3.offset-m2.offset-s1
                 .row
-                    div(class='input-field col s6')
-                        i(class='material-icons prefix') perm_identity
-                        input(type='text', name='username', id='username', autofocus, required)
-                        label(for='username') Username
-                    div(class='input-field col s6') 
-                        i(class='material-icons prefix') lock_outline   
-                        input(type='password', name='password', id='password', required)
-                        label(for='password') Password
-                .row
-                    div(class='input-field col s12')
-                        button(class='waves-effect waves-light btn', type='submit') Log in
-        
+                    .card.grey.lighten-4
+                        .card-content
+                            h5.blue-grey-text.text-darken-3 Log in to Wishlist
+                            if error.length !== 0
+                                .card-panel.red.lighten-2
+                                    p.red-text.text-lighten-5 #{error}
+                            if user_create_success.length !== 0
+                                .card-panel.green.lighten-2  
+                                    p.green-text.text-lighten-5 #{user_create_success}
+                            form(action='/api/#{apiVersion}/auth/login', method='POST')
+                                .row
+                                    .input-field.col.s12
+                                        i.material-icons.prefix perm_identity
+                                        input(type='text', name='username', id='username', autofocus, required)
+                                        label(for='username') Username
+                                .row
+                                    .input-field.col.s12
+                                        i.material-icons.prefix lock_outline   
+                                        input(type='password', name='password', id='password', required)
+                                        label(for='password') Password
+                                .row    
+                                    .center-align.col.s12
+                                        button(class='waves-effect waves-light btn', type='submit') Log in
         include ./includes/footer.jade
     
         

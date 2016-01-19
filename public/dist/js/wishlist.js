@@ -7,4 +7,7 @@ $(function() {
         max: new Date(),
         format: 'dd-mm-yyyy'
     });
+
+    // Mobile Nav
+     $(".button-collapse").sideNav();
 });

@@ -4,18 +4,18 @@
 doctype
 html(lang='en')
     include ./includes/header.jade
-body.blue
+body
+    include ./includes/nav.jade
     .container
         div(class='row', style='padding-top: 5vh;')
             .col.s12.m10.l8.offset-l2.offset-m1
                 .card.grey.lighten-4
                     .card-content
-                        h3(class='blue-grey-text text-darken-3 hide-on-small-only') Sign up to Wishlist
-                        h4(class='blue-grey-text text-darken-3 hide-on-med-and-up') Sign up to Wishlist
+                        h5.blue-grey-text.text-darken-3 Sign up to Wishlist
                         p(style='padding-bottom:2vh;', class='grey-text') Your data is kept safe. We don't share it with anyone except the authorised third-party-developers you allow.
                         if error.length !== 0
-                            div(class='card-panel red lighten-2')    
-                                p(class='red-text text-lighten-5') #{error}
+                            .card-panel.red.lighten-2
+                                p.red-text.text-lighten-5 #{error}
                         form(action='/api/#{apiVersion}/auth/sign-up', method='POST')
                             .row
                                 .input-field.col.s6

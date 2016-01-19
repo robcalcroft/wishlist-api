@@ -3,15 +3,16 @@ doctype
 html(lang='en')
     include ./includes/header.jade
 body
+    include ./includes/nav.jade
     .container
         div(class='row', style='padding-top:10vh;')
-            div(class='col s12 m8 offset-m2')
-                div(class='card blue-grey lighten-5')
-                    div(class='card-content')
+            .col.s12.m8.offset-m2
+                .card.blue-grey.lighten-5
+                    .card-content
                         .card-title 
                             img(class='responsive-img circle', style='margin-bottom:-2px;' src="http://www.gravatar.com/avatar/#{md5(user.emailAddress)}?d=identicon&s=20", alt="Profile Picture") 
                             | &nbsp;&nbsp;Hey #{user.firstName}
-                        p(class='grey-text text-darken-1') #{client.applicationName} is requesting access to your account. This means #{client.applicationName} can perform all the actions you can on the account. #{client.applicationName} can also view all of your information related to your account, except your birthday, for which #{client.applicationName} is only given approximate knowledge, for smart recomendations. 
+                        p.grey-text.text-darken-1 #{client.applicationName} is requesting access to your account. This means #{client.applicationName} can perform all the actions you can on the account. #{client.applicationName} can also view all of your information related to your account, except your birthday, for which #{client.applicationName} is only given approximate knowledge, for smart recomendations. 
                         div(class='row', style='padding-top: 3vh;')
                         .card-action
                             .row

@@ -2,21 +2,49 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(/public/dist/font/icon.woff2) format('woff2');
+  src: url(/public/dist/font/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: url(/public/dist/font/MaterialIcons-Regular.woff2) format('woff2'),
+       url(/public/dist/font/MaterialIcons-Regular.woff) format('woff'),
+       url(/public/dist/font/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'CoveredByYourGrace';
+    font-style: cursive;
+    font-weight: 400;
+    src: url(/public/dist/font/CoveredByYourGrace.ttf) format('truetype');
+}
+
+.brand-font {
+    font-family: 'CoveredByYourGrace';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2.1rem;
 }
 
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
+  font-size: 24px;  /* Preferred icon size */
   display: inline-block;
-  white-space: nowrap;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
   word-wrap: normal;
+  white-space: nowrap;
   direction: ltr;
-  -webkit-font-feature-settings: 'liga';
+
+  /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }
