@@ -16,6 +16,10 @@ echo "> User table created"
 psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../lib/models/sql/Client.sql > /dev/null
 echo "> Client table created"
 
+# Setup Client table
+psql -w -U wishlist --dbname ${1-wishlist} -h 127.0.0.1 -a -f ../lib/models/sql/ClientUser.sql > /dev/null
+echo "> ClientUser table created"
+
 echo "-- OAUTH2 --"
 
 # Setup AuthCode table
