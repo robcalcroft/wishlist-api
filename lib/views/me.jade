@@ -60,8 +60,24 @@ body
                                 .row
                                     .col.s12.center-align
                                         button(class='btn waves-effect waves-light', type='submit') Update
-                        #developer.col.s12
-                        #settings.col.s12
-                        #apps.col.s12
+                        div(class='col s12', id='developer', style='padding-top:2.5vh;')
+                        div(class='col s12', id='settings', style='padding-top:2.5vh;')
+                        div(class='col s12', id='apps', style='padding-top:2.5vh;')
+                            if authorisedApps
+                                table.bordered
+                                    thead
+                                        tr
+                                            th Application Name
+                                            th Date Authorised
+                                    tbody
+                                        - var appsCounter = authorisedApps.length;
+                                        while appsCounter--
+                                            tr
+                                                td #{authorisedApps[appsCounter].applicationName}
+                                                td #{authorisedApps[appsCounter].dateCreated.toString().replace(/ (\w+)(\+|\-)\d{4} \(\w+\)/, "")}
+                            else
+                                .card-panel.red.lighten-2
+                                    p.red-text.text-lighten-5 #{authorisedAppsErr}
+                                    
     include ./includes/footer.jade
     
