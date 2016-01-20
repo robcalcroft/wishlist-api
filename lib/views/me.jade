@@ -1,0 +1,67 @@
+- var user = {userId: 1, username: 'robcalcroft', firstName: 'Rob', lastName: 'Calcroft', emailAddress: 'rob@calcroft.com', DOB: '12-03-1994', isDeveloper: false}
+- var emailHash = md5(user.emailAddress);
+doctype
+html(lang='en')
+    include ./includes/header.jade
+body
+    include ./includes/nav.jade
+    .container
+        div(class='row', style='padding-top:2.5vh;')
+            .col.s12.m10.offset-m1.l8.offset-l2
+                .row
+                    .col.s12
+                        ul.tabs
+                            li.tab.col.s6
+                                a(href="#myprofile") My Profile
+                            li.tab.col.s6
+                                a(href="#settings") Settings
+                            li.tab.col.s6
+                                a(href="#apps") Apps
+                            li.tab.col.s6
+                                a(href="#developer") Developer
+                    .row
+                        div(class='col s12', id='myprofile', style='padding-top:2.5vh;')
+                            p.grey-text Below you can edit all your profile information.
+                            .divider
+                            form(action='#', method='POST')
+                                .row.valign-wrapper
+                                    .col.s12.m2
+                                        p.center.valign #[b First Name]
+                                    .col.s12.m4
+                                        .input-field
+                                            input(type='text', value='#{user.firstName}', name='firstName')
+                                    .col.s12.m2
+                                        p.center.valign #[b Last Name]
+                                    .col.s12.m4
+                                        .input-field
+                                            input(type='text', value='#{user.lastName}', name='lastName')
+                                .row.valign-wrapper
+                                    .col.s12.m2
+                                        p.center.valign #[b Username]
+                                    .col.s12.m4
+                                        .input-field
+                                            input(type='text', value='#{user.username}', name='username')
+                                    .col.s12.m2
+                                        p.center.valign #[b Email]
+                                    .col.s12.m4
+                                        .input-field
+                                            input(type='text', value='#{user.emailAddress}', name='emailAddress')
+                                .row.valign-wrapper
+                                    .col.s12.m2
+                                        p.center.valign #[b Birthday]
+                                    .col.s12.m4
+                                        .input-field
+                                            input(type='text', value='#{user.DOB}', name='DOB')
+                                    .col.s12.m2
+                                        p.center.valign #[b Developer]
+                                    .col.s12.m4
+                                        input(type='checkbox', class='filled-in', id='isDeveloper', checked=user.isDeveloper, name='isDeveloper')
+                                        label(for='isDeveloper', style='height:8px;')
+                                .row
+                                    .col.s12.center-align
+                                        button(class='btn waves-effect waves-light', type='submit') Update
+                        #developer.col.s12
+                        #settings.col.s12
+                        #apps.col.s12
+    include ./includes/footer.jade
+    

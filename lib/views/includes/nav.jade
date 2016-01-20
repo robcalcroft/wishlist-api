@@ -10,11 +10,16 @@ nav
             //-     a(href="#") Recommended Apps
             li(class='#{selectedLink.docs || ""}')
                 a(href="/api/docs") API Documentation
-        ul.hide-on-med-and-down.right
-            li(class='#{selectedLink.signup || ""}')
-                a(href="/api/#{apiVersion}/auth/sign-up") Sign Up
-            li(class='#{selectedLink.login || ""}')
-                a(href="/api/#{apiVersion}/auth/login") Log In
+        if !user
+            ul.hide-on-med-and-down.right
+                li(class='#{selectedLink.signup || ""}')
+                    a(href="/api/#{apiVersion}/auth/sign-up") Sign Up
+                li(class='#{selectedLink.login || ""}')
+                    a(href="/api/#{apiVersion}/auth/login") Log In
+        else 
+            ul.hide-on-med-and-down.right
+                li(class='#{selectedLink.signup || ""} active')
+                    a(href="/api/#{apiVersion}/auth/me") #{user.username}
         div.side-nav#mobile-menu
             h4.grey-text.center.brand-font WISHLIST
             .divider
@@ -30,4 +35,4 @@ nav
                 li
                     a(href="/api/docs") API Documentation
             .divider
-            .grey-text.center Rob Calcroft - &copy; 2015
+            .grey-text.center Rob Calcroft &copy; 2015

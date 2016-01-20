@@ -1,4 +1,5 @@
 INSERT INTO "Client" (
+    "userId",
     "applicationName",
     "redirectURI",
     "applicationURL",
@@ -6,6 +7,7 @@ INSERT INTO "Client" (
     "clientSecret"
 )
 VALUES (
+    '1',
     'testApp',
     'http://localhost:8000/callback',
     'http://www.testapp.com',

@@ -6,5 +6,6 @@ CREATE TABLE "User" (
     "firstName" varchar(255) NOT NULL,
     "lastName" varchar(255) NOT NULL,
     "DOB" varchar(10) NOT NULL,
+    "isDeveloper" boolean NOT NULL DEFAULT FALSE,
     "dateCreated" timestamp DEFAULT CURRENT_TIMESTAMP
 );

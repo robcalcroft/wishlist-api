@@ -48,3 +48,19 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+@media (max-width: 600px) {
+    .valign-wrapper {
+        display: block;
+    }
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1 0 auto;
+}
