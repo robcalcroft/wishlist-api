@@ -16,11 +16,11 @@ body
                         div(class='row', style='padding-top: 3vh;')
                         .card-action
                             .row
-                                form(action='/api/#{apiVersion}/auth/decision', method='POST')
+                                form(action='/decision', method='POST')
                                     input(type='hidden', name='transaction_id', value='#{transactionId}') 
                                     div(id='allow_submit', class='col')    
                                         button(class='waves-effect waves-light btn', type='submit') Allow
                                     div(class='col offset-sm3')
                                         button(class='waves-effect waves-light btn', type='submit', name='cancel' value='Deny') Deny
-        include ./includes/footer.jade
+    include ./includes/footer.jade
     
