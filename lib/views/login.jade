@@ -16,7 +16,7 @@ body
                             if user_create_success.length !== 0
                                 .card-panel.green.lighten-2  
                                     p.green-text.text-lighten-5 #{user_create_success}
-                            form(action='/api/#{apiVersion}/auth/login', method='POST')
+                            form(action='/login', method='POST')
                                 .row
                                     .input-field.col.s12
                                         i.material-icons.prefix perm_identity
@@ -30,7 +30,7 @@ body
                                 .row    
                                     .center-align.col.s12
                                         button(class='waves-effect waves-light btn', type='submit') Log in
-                            p.center Don't have an account &mdash; #[a(href='/api/#{apiVersion}/auth/sign-up') sign up here]
+                            p.center Don't have an account &mdash; #[a(href='/sign-up') sign up here]
     include ./includes/footer.jade
     
         

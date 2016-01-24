@@ -16,7 +16,7 @@ body
                         if error.length !== 0
                             .card-panel.red.lighten-2
                                 p.red-text.text-lighten-5 #{error}
-                        form(action='/api/#{apiVersion}/auth/sign-up', method='POST')
+                        form(action='/sign-up', method='POST')
                             .row
                                 .input-field.col.s6
                                     input(type='text', name='firstName', id='firstName', autofocus, value='#{fieldPrefill.firstName || ""}')
@@ -41,5 +41,5 @@ body
                                     label(for='DOB') Birthday
                             .center-align
                                 button(class='btn waves-effect waves-light', type='submit') Sign Up
-                        p(class='center', style='padding-top:2vh;') Already have an account &mdash; #[a(href='/api/#{apiVersion}/auth/login') log in here]
+                        p(class='center', style='padding-top:2vh;') Already have an account &mdash; #[a(href='/login') log in here]
     include ./includes/footer.jade

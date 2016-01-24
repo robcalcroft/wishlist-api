@@ -16,7 +16,7 @@ body
                         div(class='row', style='padding-top: 3vh;')
                         .card-action
                             .row
-                                form(action='/api/#{apiVersion}/auth/decision', method='POST')
+                                form(action='/decision', method='POST')
                                     input(type='hidden', name='transaction_id', value='#{transactionId}') 
                                     div(id='allow_submit', class='col')    
                                         button(class='waves-effect waves-light btn', type='submit') Allow

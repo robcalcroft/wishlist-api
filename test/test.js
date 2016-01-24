@@ -104,7 +104,7 @@ describe('Wishlist API', () => {
 
         it('should redirect to the login screen when client opens /api/1/auth/authorize if the user isn\'t logged in', (done) => {
             request(`http://127.0.0.1:${process.env.PORT}/api/1/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`, (err, res, body) => {
-                assert.equal(res.client._httpMessage.path, '/api/1/auth/login');
+                assert.equal(res.client._httpMessage.path, '/login');
                 done();
             });
         });
@@ -114,7 +114,7 @@ describe('Wishlist API', () => {
             request(
                 {
                     method: 'POST',
-                    url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/login`,
+                    url: `http://127.0.0.1:${process.env.PORT}/login`,
                     // This data is included in the SQL dummy data
                     form: {
                         'username': user.username,
@@ -123,7 +123,7 @@ describe('Wishlist API', () => {
                     jar: cookieJar
                 },
                 (err, res, body) => {
-                    if(body !== 'Found. Redirecting to /api/1/auth/login') {
+                    if(body !== 'Found. Redirecting to /login') {
                         request(
                             {
                                 url: `http://127.0.0.1:${process.env.PORT}/api/1/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`,

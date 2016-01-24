@@ -1,0 +1,73 @@
+- var emailHash = md5(user.emailAddress);
+doctype
+html(lang='en')
+    include ./includes/header.jade
+body
+    include ./includes/nav.jade
+    .container
+        div(class='row', style='padding-top:2.5vh;')
+            .col.s12.m10.offset-m1.l8.offset-l2
+                .row
+                    .col.s12
+                        ul.tabs
+                            li.tab.col.s6
+                                a(href='#myprofile') My Profile
+                            li.tab.col.s6
+                                a(href='#apps') Apps
+                            li(class='tab col s6')
+                                a(href='#developer') Developer
+                    .row
+                        div(class='col s12', id='myprofile', style='padding-top:2.5vh;')
+                            p.grey-text This is all the information we hold about you. You can use of our recommened third party apps to edit this data.
+                            .divider
+                            .row.valign-wrapper
+                                .col.s12.m2
+                                    p.valign #[b First Name]
+                                .col.s12.m4
+                                    p #{user.firstName}
+                                .col.s12.m2
+                                    p.valign #[b Last Name]
+                                .col.s12.m4
+                                    p #{user.lastName}
+                            .row.valign-wrapper
+                                .col.s12.m2
+                                    p.valign #[b Username]
+                                .col.s12.m4
+                                    p #{user.username}
+                                .col.s12.m2
+                                    p.valign #[b Email]
+                                .col.s12.m4
+                                    p #{user.emailAddress}
+                            .row
+                                .col.s12.m2
+                                    p.valign #[b Birthday]
+                                .col.s12.m4
+                                    p #{user.DOB}
+                            .divider
+                        div(class='col s12', id='apps', style='padding-top:2.5vh;')
+                            if authorisedApps
+                                p.grey-text Below are all the apps you have authorised to use your account and when they were authorised to do so.
+                                table.bordered
+                                    thead
+                                        tr
+                                            th Application Name
+                                            th Date Authorised
+                                    tbody
+                                        - var appsCounter = authorisedApps.length;
+                                        while appsCounter--
+                                            tr
+                                                td #{authorisedApps[appsCounter].applicationName}
+                                                td #{authorisedApps[appsCounter].dateCreated.toString().replace(/ (\w+)(\+|\-)\d{4} \(\w+\)/, "")}
+                            else
+                                .card-panel.red.lighten-2
+                                    p.red-text.text-lighten-5 #{authorisedAppsErr}
+                        div(class='col s12', id='developer', style='padding-top:2.5vh;')
+                            p.grey-text This tab allows developers to create applications for Wishlist. These applications allow other developers to implement Wishlist's functionality on a variety of platforms.
+                            .divider
+                            p Your created apps
+                            .divider
+                            #react-hook
+                            .divider
+                            p.grey-text Help on using the HTTP REST API can be #[a(href="/api/docs") found here]
+    include ./includes/footer.jade
+    
