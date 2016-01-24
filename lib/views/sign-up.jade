@@ -7,16 +7,16 @@ html(lang='en')
 body
     include ./includes/nav.jade
     .container
-        div(class='row', style='padding-top: 5vh;')
+        div(class='row', style='padding-top: 2.5vh;')
             .col.s12.m10.l8.offset-l2.offset-m1
                 .card.grey.lighten-4
                     .card-content
                         h5.blue-grey-text.text-darken-3 Sign up to Wishlist
-                        p(style='padding-bottom:2vh;', class='grey-text') Your data is kept safe. We don't share it with anyone except the authorised third-party-developers you allow.
+                        p(style='padding-bottom:2vh;', class='grey-text') Your data is kept safe. We don't share it with anyone except the authorised third-party-developers you allow. Read our #[a(href='http://google.com') terms &amp; conditions] for more. You still need an account if you're a developer too so we know who you are.
                         if error.length !== 0
                             .card-panel.red.lighten-2
                                 p.red-text.text-lighten-5 #{error}
-                        form(action='/api/#{apiVersion}/auth/sign-up', method='POST')
+                        form(action='/sign-up', method='POST')
                             .row
                                 .input-field.col.s6
                                     input(type='text', name='firstName', id='firstName', autofocus, value='#{fieldPrefill.firstName || ""}')
@@ -34,11 +34,12 @@ body
                             .row
                                 .input-field.col.s12
                                     input(type='text', name='emailAddress', id='emailAddress', value='#{fieldPrefill.emailAddress || ""}')
-                                    label(for='emailAddress') Email Address
+                                    label(for='emailAddress') Email
                             .row
                                 .input-field.col.s12
                                     input(type='date', name='DOB', id='DOB', class='datepicker', , value='#{fieldPrefill.DOB || ""}')
                                     label(for='DOB') Birthday
                             .center-align
                                 button(class='btn waves-effect waves-light', type='submit') Sign Up
-        include ./includes/footer.jade
+                        p(class='center', style='padding-top:2vh;') Already have an account &mdash; #[a(href='/login') log in here]
+    include ./includes/footer.jade
