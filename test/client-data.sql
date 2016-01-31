@@ -1,7 +1,7 @@
 INSERT INTO "Client" (
     "applicationName",
     "redirectURI",
-    "applicationURL",
+    "applicationURI",
     "clientId",
     "clientSecret"
 )

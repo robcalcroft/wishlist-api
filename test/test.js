@@ -61,46 +61,49 @@ describe('Utilities testing', () => {
 // Main API Testing
 describe('Wishlist API', () => {
 
-    // describe('Abuse Prevention', () => {
-    //
-    //     it('should throw a 429 error after too many request', (done) => {
-    //
-    //         let reqCount = 1;
-    //
-    //         (function reqCall() {
-    //             request(`http://localhost:${process.env.PORT}/docs`, (err, res) => {
-    //                 if(reqCount > 5) {
-    //                     assert.equal(res.statusCode, 429);
-    //                     return done();
-    //                 }
-    //                 reqCount++;
-    //                 reqCall();
-    //             });
-    //         })();
-    //
-    //     });
-    //
-    // });
-    // TODO Change test URL to other URL, /docs has too many js css files that
-    // are breaking the 429 limit in testing
+    describe('Abuse Prevention', () => {
+
+        it('should throw a 429 error after too many request', (done) => {
+
+            let reqCount = 1;
+
+            (function reqCall() {
+                request({
+                    url: `http://localhost:${process.env.PORT}/sign-up`,
+                    method: 'POST'
+                },
+                (err, res) => {
+                    if(reqCount > 5) {
+                        assert.equal(res.statusCode, 429);
+                        return done();
+                    }
+                    reqCount++;
+                    reqCall();
+                });
+            })();
+
+        });
+
+    });
+
+    const client = {
+        id: 'f6effb0a6eaf48daf2e9588d76733592',
+        secret: 'Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6',
+        redirect_uri: `http://localhost:${process.env.PORT}/callback`
+    };
+
+    const user = {
+        username: 'jimbojones',
+        password: 'j1mb0',
+        userId: 1
+    };
+
+    // Maintains state
+    let cookieJar = request.jar();
+
+    let authCode, refreshToken, accessToken;
 
     describe('OAuth2', () => {
-
-        const client = {
-            id: 'f6effb0a6eaf48daf2e9588d76733592',
-            secret: 'Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6',
-            redirect_uri: `http://localhost:${process.env.PORT}/callback`
-        };
-
-        const user = {
-            username: 'jimbojones',
-            password: 'j1mb0'
-        };
-
-        // Maintains state
-        let cookieJar = request.jar();
-
-        let authCode, refreshToken, accessToken;
 
         it('should redirect to the login screen when client opens /api/1/auth/authorize if the user isn\'t logged in', (done) => {
             request(`http://127.0.0.1:${process.env.PORT}/api/1/auth/authorize?client_id=${client.id}&redirect_uri=${client.redirect_uri}&response_type=code`, (err, res, body) => {
@@ -329,9 +332,122 @@ describe('Wishlist API', () => {
                     assert(result.access_token);
                     assert.notEqual(accessToken, result.access_token);
 
+                    accessToken = result.access_token;
+
                     done();
                 }
             );
+
+        });
+
+    });
+
+    describe('REST API', () => {
+
+        describe('Utilities', () => {
+
+            it('should return data about a URI', function(done) {
+                this.timeout(5000);
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/uri-metadata`,
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                        qs: {
+                            uri: 'http://www.asos.com/ASOS/ASOS-2-Pack-Socks-With-Kelloggs-Design/Prod/pgeproduct.aspx?iid=5557972&CTARef=Recently%20Viewed'
+                        }
+                    },
+                    (err, res, body) => {
+                        assert(JSON.parse(body).result.title);
+                        done();
+                    }
+                );
+            });
+
+        });
+
+        describe('User', () => {
+
+            it('should return user profile data', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/user`,
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    },
+                    (err, res, body) => {
+                        assert.equal(JSON.parse(body).result.userId, 1);
+                        done();
+                    }
+                );
+            });
+
+            it('should return a user when a search query is met', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/user/search`,
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                        qs: {
+                            username: 'jimbo'
+                        }
+                    },
+                    (err, res, body) => {
+                        assert(JSON.parse(body).result[0].userId);
+                        done();
+                    }
+                );
+            });
+
+            it('should return an error if the length of the query is less than 3 characters', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/user/search`,
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                        qs: {
+                            username: 'ji'
+                        }
+                    },
+                    (err, res, body) => {
+                        assert.equal(res.statusCode, 400);
+                        done();
+                    }
+                );
+            });
+
+        });
+
+        describe('Wishlist', () => {
+
+            it('should create a new wishlist', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist`,
+                        method: 'POST',
+                        form: {
+                            title: 'Test',
+                            image_uri: 'http://images.google.com/test.png',
+                            privacy: 'private'
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    },
+                    (err, res, body) => {
+                        assert.equal(res.statusCode, 200);
+                        done();
+                    }
+                );
+            });
 
         });
 
@@ -342,16 +458,10 @@ describe('Wishlist API', () => {
 describe('Docs', () => {
 
     it('should present the user with the docs page', (done) => {
-
-        // Timeout used becuase we test this route for the 429 tests and need
-        // to let it expire again before we test it.
-        setTimeout(() => {
-            request(`http://127.0.0.1:${process.env.PORT}/api/docs`, (err, res, body) => {
-                assert.equal(res.statusCode, 200);
-                done();
-            });
-        }, 750);
-
+        request(`http://127.0.0.1:${process.env.PORT}/api/docs`, (err, res, body) => {
+            assert.equal(res.statusCode, 200);
+            done();
+        });
     });
 
 });

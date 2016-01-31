@@ -1,4 +1,4 @@
 [
     ["/api/1/uri-metadata", "GET", 2, 1],
-    ["/api/1/auth/sign-up", "POST", 2, 1]
+    ["/sign-up", "POST", 2, 1]
 ]
