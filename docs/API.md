@@ -120,7 +120,7 @@ Success - results
 ```
 {
     'statusCode': 200,
-    result: [
+    'result': [
         {
             'userId': 1,
             'firstName': 'John',
@@ -160,7 +160,7 @@ Success - results
 ```
 {
     'statusCode': 200,
-    result: [
+    'result': [
         {
             'applicationName': 'testApp',
             'dateCreated': 'Sun Jan 24 2016 19:17:18'
@@ -202,12 +202,12 @@ Success - results
 ```
 {
     'statusCode': 200,
-    result: [
+    'result': [
         {
-            userId: 1,
-            firstName: 'John',
-            lastName: 'Smith',
-            username: 'johnsmith1'
+            'userId': 1,
+            'firstName': 'John',
+            'lastName': 'Smith',
+            'username': 'johnsmith1'
         }
     ],
     'message': 'Success, user(s) found'
