@@ -4,19 +4,20 @@ A vendor agnostic wishlist creator
 
 - [Authentication](#authentication)
 	- [User authorization](#user-authorization)
-	- [Obtaining a token](#obtaining-a-token)
+	- [Getting a token](#getting-a-token)
 	
 - [User](#user)
 	- [Authenticated user details](#authenticated-user-details)
+	- [Lists authorised apps](#lists-authorised-apps)
 	- [Search for users](#search-for-users)
 	
 - [Utilities](#utilities)
 	- [Bearer token testing](#bearer-token-testing)
-	- [Obtain metadata about a URI](#obtain-metadata-about-a-uri)
+	- [Get metadata about a URI](#get-metadata-about-a-uri)
 	
 - [Wishlist](#wishlist)
-	- [Obtain wishlist metadata](#obtain-wishlist-metadata)
-	- [Obtain detailed wishlist items](#obtain-detailed-wishlist-items)
+	- [Get wishlist metadata](#get-wishlist-metadata)
+	- [Get detailed wishlist items](#get-detailed-wishlist-items)
 	- [Create new wishlist](#create-new-wishlist)
 	
 
@@ -25,7 +26,7 @@ A vendor agnostic wishlist creator
 
 ## User authorization
 
-<p>This route is opened in a new window for the user</p> 
+<p>This route is opened in a new window for the user</p>
 
 	GET /auth/authorize
 
@@ -34,9 +35,9 @@ A vendor agnostic wishlist creator
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| client_id			| <p>String</p> 			|  <p>Your client ID</p> 							|
-| response_type			| <p>String</p> 			|  <p>The response type you wish to obtain, usually <code>code</code></p> 							|
-| redirect_uri			| <p>String</p> 			|  <p>The redirect URI you setup for your client</p> 							|
+| client_id			| String			|  <p>Your client ID</p>							|
+| response_type			| String			|  <p>The response type you wish to obtain, usually <code>code</code></p>							|
+| redirect_uri			| String			|  <p>The redirect URI you setup for your client</p>							|
 
 ### Success Response
 
@@ -52,9 +53,9 @@ Error
 ```
 GET http://example.com/callback?error=access_denied
 ```
-## Obtaining a token
+## Getting a token
 
-<p>This route is used to obtain a token using a refresh token or an authorization code</p> 
+<p>This route is used to obtain a token using a refresh token or an authorization code</p>
 
 	POST /auth/token
 
@@ -63,12 +64,12 @@ GET http://example.com/callback?error=access_denied
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| client_id			| <p>String</p> 			|  <p>Your client ID</p> 							|
-| client_secret			| <p>String</p> 			|  <p>Your client secret</p> 							|
-| code			| <p>String</p> 			|  <p>Your auth code, only one of the <code>code</code> or <code>refresh_token</code> is needed</p> 							|
-| refresh_token			| <p>String</p> 			|  <p>Your refresh token, only one of the <code>code</code> or <code>refresh_token</code> is needed</p> 							|
-| grant_type			| <p>String</p> 			|  <p>The grant type you wish to use</p> 							|
-| redirect_uri			| <p>String</p> 			|  <p>The redirect URI you setup for your client</p> 							|
+| client_id			| String			|  <p>Your client ID</p>							|
+| client_secret			| String			|  <p>Your client secret</p>							|
+| code			| String			|  <p>Your auth code, only one of the <code>code</code> or <code>refresh_token</code> is needed</p>							|
+| refresh_token			| String			|  <p>Your refresh token, only one of the <code>code</code> or <code>refresh_token</code> is needed</p>							|
+| grant_type			| String			|  <p>The grant type you wish to use</p>							|
+| redirect_uri			| String			|  <p>The redirect URI you setup for your client</p>							|
 
 ### Success Response
 
@@ -102,7 +103,7 @@ Error
 
 ## Authenticated user details
 
-<p>Get all details for the currently authenticated user.</p> 
+<p>Get all details for the currently authenticated user.</p>
 
 	GET /user
 
@@ -110,7 +111,7 @@ Error
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| Authorization			| Token			|  <p>Your access token</p> 							|
+| Authorization			| Token			|  <p>Your access token</p>							|
 
 ### Success Response
 
@@ -140,9 +141,44 @@ Auth Error
 ```
 401 Unauthorized
 ```
+## Lists authorised apps
+
+<p>Retrieve an application name that is authorised to access the account and a timestamp that tells the user when it was authorised.</p>
+
+	GET /user/authorised-apps
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p>							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    result: [
+        {
+            'applicationName': 'testApp',
+            'dateCreated': 'Sun Jan 24 2016 19:17:18'
+        }
+    ],
+    'message': 'Success'
+}
+```
+### Error Response
+
+Auth Error
+
+```
+401 Unauthorized
+```
 ## Search for users
 
-<p>Search based on email address or username. Email address must be in full</p> 
+<p>Search based on email address or username. Email address must be in full</p>
 
 	GET /user/search
 
@@ -150,14 +186,14 @@ Auth Error
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| Authorization			| Token			|  <p>Your access token</p> 							|
+| Authorization			| Token			|  <p>Your access token</p>							|
 
 ### Parameters
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| email_address			| <p>String</p> 			|  <p>Email address of the user to search</p> 							|
-| username			| <p>String</p> 			|  <p>Username of the user to search</p> 							|
+| email_address			| String			|  <p>Email address of the user to search</p>							|
+| username			| String			|  <p>Username of the user to search</p>							|
 
 ### Success Response
 
@@ -188,7 +224,7 @@ Auth Error
 
 ## Bearer token testing
 
-<p>A route to allow clients to test their bearer tokens</p> 
+<p>A route to allow clients to test their bearer tokens</p>
 
 	GET /auth/protected
 
@@ -196,7 +232,7 @@ Auth Error
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| Authorization			| Token			|  <p>Your access token</p> 							|
+| Authorization			| Token			|  <p>Your access token</p>							|
 
 ### Success Response
 
@@ -216,9 +252,9 @@ Auth Error
 ```
 401 Unauthorized
 ```
-## Obtain metadata about a URI
+## Get metadata about a URI
 
-<p>Used for front-end field population for images, description etc</p> 
+<p>Used for front-end field population for images, description etc</p>
 
 	GET /uri-metadata
 
@@ -226,13 +262,13 @@ Auth Error
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| Authorization			| Token			|  <p>Your access token</p> 							|
+| Authorization			| Token			|  <p>Your access token</p>							|
 
 ### Parameters
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| uri			| <p>String</p> 			|  <p>The URL to grab meta data from</p> 							|
+| uri			| String			|  <p>The URI to grab meta data from</p>							|
 
 ### Success Response
 
@@ -260,9 +296,9 @@ Auth Error
 ```
 # Wishlist
 
-## Obtain wishlist metadata
+## Get wishlist metadata
 
-<p>Gives metadata about each wishlist from the search. If the user id searched for is not the currently authenticated user, only publically viewable wishlists will be shown.</p> 
+<p>Gives metadata about each wishlist from the search. If the user id searched for is not the currently authenticated user, only publically viewable wishlists will be shown.</p>
 
 	GET /wishlist
 
@@ -270,17 +306,17 @@ Auth Error
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| Authorization			| Token			|  <p>Your access token</p> 							|
+| Authorization			| Token			|  <p>Your access token</p>							|
 
 ### Parameters
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| wishlist_id			| <p>String</p> 			|  <p>The wishlist ID to search upon</p> 							|
-| user_id			| <p>String</p> 			|  <p>Grab all wishlists for the corresponding user</p> 							|
-| email_address			| <p>String</p> 			|  <p>Grab all wishlists for the corresponding user</p> 							|
-| username			| <p>String</p> 			|  <p>Grab all wishlists for the corresponding user</p> 							|
-| order			| <p>String</p> 			| **optional** <p>The order of the results</p> 							|
+| wishlist_id			| String			|  <p>The wishlist ID to search upon</p>							|
+| user_id			| String			|  <p>Grab all wishlists for the corresponding user</p>							|
+| email_address			| String			|  <p>Grab all wishlists for the corresponding user</p>							|
+| username			| String			|  <p>Grab all wishlists for the corresponding user</p>							|
+| order			| String			| **optional** <p>The order of the results</p>							|
 
 ### Success Response
 
@@ -308,9 +344,9 @@ Auth Error
 ```
 401 Unauthorized
 ```
-## Obtain detailed wishlist items
+## Get detailed wishlist items
 
-<p>Gives all entries to a wish list</p> 
+<p>Gives all entries to a wish list</p>
 
 	GET /wishlist/item
 
@@ -318,17 +354,17 @@ Auth Error
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| Authorization			| Token			|  <p>Your access token</p> 							|
+| Authorization			| Token			|  <p>Your access token</p>							|
 
 ### Parameters
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| wishlist_id			| <p>String</p> 			|  <p>The wishlist ID to search upon</p> 							|
-| price_low			| <p>Int</p> 			| **optional** <p>Price filtering between values - mandatory if companion option is specified.</p> 							|
-| price_high			| <p>Int</p> 			| **optional** <p>Price filtering between values - mandatory if companion option is specified.</p> 							|
-| priority			| <p>Int</p> 			| **optional** <p>Filter the priority of results. Multiples can be specified by a comma: priority=5,4</p> 							|
-| order			| <p>String</p> 			| **optional** <p>The order of the results</p> 							|
+| wishlist_id			| String			|  <p>The wishlist ID to search upon</p>							|
+| price_low			| Int			| **optional** <p>Price filtering between values - mandatory if companion option is specified.</p>							|
+| price_high			| Int			| **optional** <p>Price filtering between values - mandatory if companion option is specified.</p>							|
+| priority			| Int			| **optional** <p>Filter the priority of results. Multiples can be specified by a comma: priority=5,4</p>							|
+| order			| String			| **optional** <p>The order of the results</p>							|
 
 ### Success Response
 
@@ -364,7 +400,7 @@ Auth Error
 ```
 ## Create new wishlist
 
-<p>Creates a new wishlist for the authenticated user</p> 
+<p>Creates a new wishlist for the authenticated user</p>
 
 	POST /wishlist
 
@@ -372,16 +408,16 @@ Auth Error
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| Authorization			| Token			|  <p>Your access token</p> 							|
+| Authorization			| Token			|  <p>Your access token</p>							|
 
 ### Parameters
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| title			| <p>String</p> 			|  <p>The title of the wishlist</p> 							|
-| is_default			| <p>String</p> 			| **optional** <p>Set the wishlist as the default wishlist for the user A header image for the list</p> 							|
-| image_uri			| <p>String</p> 			| **optional** <p>A header image for the list</p> 							|
-| privacy			| <p>String</p> 			| **optional** <p>The visibility of the wishlist to other users</p> 							|
+| title			| String			|  <p>The title of the wishlist</p>							|
+| is_default			| String			| **optional** <p>Set the wishlist as the default wishlist for the user A header image for the list</p>							|
+| image_uri			| String			| **optional** <p>A header image for the list</p>							|
+| privacy			| String			| **optional** <p>The visibility of the wishlist to other users</p>							|
 
 ### Success Response
 
