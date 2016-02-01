@@ -16,6 +16,8 @@ A vendor agnostic wishlist creator
 	- [Get metadata about a URI](#get-metadata-about-a-uri)
 	
 - [Wishlist](#wishlist)
+	- [Delete a wishlist](#delete-a-wishlist)
+	- [Delete an entry to a wishlist](#delete-an-entry-to-a-wishlist)
 	- [Get wishlist metadata](#get-wishlist-metadata)
 	- [Get detailed wishlist items](#get-detailed-wishlist-items)
 	- [Create new wishlist](#create-new-wishlist)
@@ -297,6 +299,108 @@ Auth Error
 ```
 # Wishlist
 
+## Delete a wishlist
+
+<p>Permenantly deletes the wishlist</p>
+
+	DELETE /wishlist
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p>							|
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| wishlist_id			| String			|  <p>The ID of the wishlist</p>							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    'message': 'Wishlist successfully deleted'
+}
+```
+### Error Response
+
+Unauthorized delete request
+
+```
+{
+    'statusCode': 403,
+    'message': 'The wishlist item given does not belong to the authorised user'
+}
+```
+Auth Error
+
+```
+401 Unauthorized
+```
+## Delete an entry to a wishlist
+
+<p>Delete an entry to a wishlist</p>
+
+	DELETE /wishlist/item
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p>							|
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| wishlist_item_id			| String			|  <p>The wishlist ID to add the item to</p>							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    'message': 'Wishlist item 1 successfully deleted'
+}
+```
+### Error Response
+
+Missing required fields
+
+```
+{
+    'statusCode': 400,
+    'message': 'Required fields <FIELDS> must be present'
+}
+```
+Wishlist item not found
+
+```
+{
+    'statusCode': 404,
+    'message': 'Wishlist item ID not found'
+}
+```
+Unauthorized delete request
+
+```
+{
+    'statusCode': 403,
+    'message': 'The wishlist item given does not belong to the authorised user'
+}
+```
+Auth Error
+
+```
+401 Unauthorized
+```
 ## Get wishlist metadata
 
 <p>Gives metadata about each wishlist from the search. If the user id searched for is not the currently authenticated user, only publically viewable wishlists will be shown.</p>

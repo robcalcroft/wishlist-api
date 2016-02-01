@@ -619,6 +619,44 @@ describe('Wishlist API', () => {
                 );
             });
 
+            it('should delete a specified wishlist item', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist/item`,
+                        method: 'DELETE',
+                        qs: {
+                            wishlist_item_id: 5
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    },
+                    (err, res, body) => {
+                        assert.equal(res.statusCode, 200);
+                        done();
+                    }
+                );
+            });
+
+            it('should delete a specified wishlist', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist`,
+                        method: 'DELETE',
+                        qs: {
+                            wishlist_id: 1
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    },
+                    (err, res, body) => {
+                        assert.equal(res.statusCode, 200);
+                        done();
+                    }
+                );
+            });
+
         });
 
     });
