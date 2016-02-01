@@ -4,7 +4,7 @@ CREATE TABLE "WishlistItem" (
     "wishlistItemId" serial NOT NULL UNIQUE PRIMARY KEY,
     "title" varchar(100) NOT NULL,
     "description" varchar(500),
-    "sourceURI" varchar(2000),
+    "sourceURI" varchar(2000) NOT NULL,
     "sourceName" varchar(500),
     "imageURI" varchar(500),
     "price" int,

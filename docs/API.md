@@ -19,6 +19,7 @@ A vendor agnostic wishlist creator
 	- [Get wishlist metadata](#get-wishlist-metadata)
 	- [Get detailed wishlist items](#get-detailed-wishlist-items)
 	- [Create new wishlist](#create-new-wishlist)
+	- [Create entry to wishlist](#create-entry-to-wishlist)
 	
 
 
@@ -278,11 +279,11 @@ Success - results
 {
     'statusCode': 200,
     'results': [{
-        title: 'Fast Car',
-        description: 'A very fast car'.
-        image: 'http://example.com/image.png',
-        provider_name: 'Example'
-        uri: 'http://example.com/get-car-picture'
+        'title': 'Fast Car',
+        'description': 'A very fast car'.
+        'image': 'http://example.com/image.png',
+        'provider_name': 'Example'
+        'uri': 'http://example.com/get-car-picture'
     }],
     'message': 'Success'
 }
@@ -314,8 +315,6 @@ Auth Error
 |---------|-----------|--------------------------------------|
 | wishlist_id			| String			|  <p>The wishlist ID to search upon</p>							|
 | user_id			| String			|  <p>Grab all wishlists for the corresponding user</p>							|
-| email_address			| String			|  <p>Grab all wishlists for the corresponding user</p>							|
-| username			| String			|  <p>Grab all wishlists for the corresponding user</p>							|
 | order			| String			| **optional** <p>The order of the results</p>							|
 
 ### Success Response
@@ -431,6 +430,66 @@ Success - results
 ```
 ### Error Response
 
+Auth Error
+
+```
+401 Unauthorized
+```
+## Create entry to wishlist
+
+<p>Provide an entry to a specified wishlist (you can use /api/<version>/uri-metadata to get most of the required data below)</p>
+
+	POST /wishlist/item
+
+### Headers
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| Authorization			| Token			|  <p>Your access token</p>							|
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| wishlist_id			| String			|  <p>The wishlist ID to add the item to</p>							|
+| title			| String			|  <p>The title or name of the entry</p>							|
+| description			| String			| **optional** <p>A description of the entry</p>							|
+| source_uri			| String			|  <p>The original uri entered</p>							|
+| source_name			| String			| **optional** <p>The provider of the link e.g. Amazon</p>							|
+| image_uri			| String			| **optional** <p>An image assosiated with the entry</p>							|
+| price			| Int			| **optional** <p>A price for the entry</p>							|
+| price_currency			| String			| **optional** <p>The currency the price is in e.g. 'stirling', 'euro', 'us_dollar' - required if price is specified</p>							|
+| price_currency_symbol			| String			| **optional** <p>The symbol of the specified currency - required if price is specified</p>							|
+| user_priority			| Int			| **optional** <p>The priority the user rates the entry</p>							|
+
+### Success Response
+
+Success - results
+
+```
+{
+    'statusCode': 200,
+    'message': 'Success'
+}
+```
+### Error Response
+
+Missing required fields
+
+```
+{
+    'statusCode': 400,
+    'message': 'Required fields <FIELDS> must be present'
+}
+```
+Price currency or symbol not specified
+
+```
+{
+    'statusCode': 400,
+    'message': 'If price is specified, price_currency and price_currency_symbol must be present'
+}
+```
 Auth Error
 
 ```

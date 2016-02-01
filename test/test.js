@@ -449,6 +449,176 @@ describe('Wishlist API', () => {
                 );
             });
 
+            it('should return a list of wishlists based on a user_id search', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist`,
+                        method: 'GET',
+                        qs: {
+                            user_id: '1'
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    },
+                    (err, res, body) => {
+                        assert(JSON.parse(body).result[0]);
+                        done();
+                    }
+                );
+            });
+
+            it('should return a list of wishlists based on a wishlist_id search', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist`,
+                        method: 'GET',
+                        qs: {
+                            wishlist_id: '1'
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    },
+                    (err, res, body) => {
+                        assert(JSON.parse(body).result[0]);
+                        done();
+                    }
+                );
+            });
+
+            it('should create a wishlist entry in an existing wishlist', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist/item`,
+                        method: 'POST',
+                        form: {
+                            wishlist_id: 1,
+                            title: 'Big Hat',
+                            source_uri: 'http://hat.com',
+                            source_name: 'BigHat',
+                            description: 'A big hat just for you',
+                            price: 12,
+                            price_currency: 'stirling',
+                            price_currency_symbol: '£',
+                            user_priority: 4,
+                            image_uri: 'http://google.com/image.png'
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                    },
+                    (err, res, body) => {
+                        assert.equal(res.statusCode, 200);
+                        done();
+                    }
+                );
+            });
+
+            it('should return a 400 status code if there is no wishlist_id', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist/item`,
+                        method: 'POST',
+                        form: {
+                            title: 'Big Hat',
+                            source_uri: 'http://hat.com',
+                            source_name: 'BigHat',
+                            description: 'A big hat just for you',
+                            price: 12,
+                            price_currency: 'stirling',
+                            price_currency_symbol: '£',
+                            user_priority: 4,
+                            image_uri: 'http://google.com/image.png'
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                    },
+                    (err, res, body) => {
+                        assert.equal(res.statusCode, 400);
+                        done();
+                    }
+                );
+            });
+
+            it('should return a 400 status code if there is no price_currency or price_currency_symbol when price is specified', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist/item`,
+                        method: 'POST',
+                        form: {
+                            wishlist_id: 1,
+                            title: 'Big Hat',
+                            source_uri: 'http://hat.com',
+                            source_name: 'BigHat',
+                            description: 'A big hat just for you',
+                            price: 12,
+                            user_priority: 4,
+                            image_uri: 'http://google.com/image.png'
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    },
+                    (err, res, body) => {
+                        assert.equal(res.statusCode, 400);
+                        done();
+                    }
+                );
+            });
+
+            it('should return the entries of a wishlist', (done) => {
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist/item`,
+                        method: 'GET',
+                        qs: {
+                            wishlist_id: 1
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    },
+                    (err, res, body) => {
+                        assert(JSON.parse(body).result[0]);
+                        done();
+                    }
+                );
+            });
+
+            it('should filter priorities from results of an entries search', (done) => {
+                let priority = 1;
+                request(
+                    {
+                        url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist/item`,
+                        method: 'GET',
+                        qs: {
+                            wishlist_id: 1,
+                            priority: `${priority}`
+                        },
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    },
+                    (err, res, body) => {
+                        body = JSON.parse(body);
+
+                        let len = body.result.length;
+
+                        while(len--) {
+                            if(body.result[len].userPriority !== priority) {
+                                assert.fail();
+                                return done();
+                            }
+                        }
+                        assert(true);
+                        done();
+
+                    }
+                );
+            });
+
         });
 
     });
