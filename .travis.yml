@@ -12,4 +12,4 @@ services:
 env:
   - SECRET=testing PORT=8000 REGION=en ACCESS_TOKEN_EXPIRY=3600 DB_NAME=wishlist DB_USERNAME=wishlist DB_PASSWORD='' API_VERSION=1
 before_script:
-    - psql -c 'create user wishlist with SUPERUSER CREATEROLE CREATEDB REPLICATION PASSWORD ''; -U postgres
+    - psql -c 'create user wishlist with SUPERUSER CREATEROLE CREATEDB REPLICATION PASSWORD "";' -U postgres
