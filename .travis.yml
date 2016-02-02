@@ -2,12 +2,15 @@ language: node_js
 node_js:
   - "0.12"
   - "0.11"
-  - "0.10"
+sudo: required
 addons:
   postgresql: "9.4"
 services:
   - postgresql
 env:
   - SECRET=testing PORT=8000 REGION=en ACCESS_TOKEN_EXPIRY=3600 DB_NAME=wishlist DB_USERNAME=wishlist DB_PASSWORD='' API_VERSION=1
+before_install:
+    - sudo apt-get install g++
+    - sudo apt-get install build-essential python2.7
 before_script:
     - psql -c 'create user wishlist with SUPERUSER CREATEROLE CREATEDB REPLICATION;' -U postgres
