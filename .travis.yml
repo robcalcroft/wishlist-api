@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "4.1"
+  - "4.0"
+  - "0.12"
+  - "0.11"
+  - "0.10"
+  - "iojs"
+addons:
+  postgresql: "9.4"
+services:
+  - postgresql
+env:
+  - SECRET=testing
+  - ACCESS_TOKEN_EXPIRY=3600
+  - REGION=en
+  - PORT=8000
+before_script:
+    - psql -c 'create user wishlist with SUPERUSER CREATEROLE CREATEDB REPLICATION PASSWORD ''; -U postgres
