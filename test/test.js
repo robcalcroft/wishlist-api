@@ -73,7 +73,10 @@ describe('Wishlist API', () => {
                     method: 'POST'
                 },
                 (err, res) => {
-                    if(reqCount > 5) {
+                    if(err || !res) {
+                        return assert.fail();
+                    }
+                    if(reqCount > 6) {
                         assert.equal(res.statusCode, 429);
                         return done();
                     }
