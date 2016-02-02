@@ -10,9 +10,6 @@ addons:
 services:
   - postgresql
 env:
-  - SECRET=testing PORT=8000 REGION=en ACCESS_TOKEN_EXPIRY=3600 DB_NAME=wishlist DB_USERNAME=wishlist DB_PASSWORD='' API_VERSION=1
-before_install:
-    - sudo apt-get install g++
-    - sudo apt-get install build-essential python2.7
+  - CXX=g++-4.8 SECRET=testing PORT=8000 REGION=en ACCESS_TOKEN_EXPIRY=3600 DB_NAME=wishlist DB_USERNAME=wishlist DB_PASSWORD='' API_VERSION=1
 before_script:
     - psql -c 'create user wishlist with SUPERUSER CREATEROLE CREATEDB REPLICATION;' -U postgres
