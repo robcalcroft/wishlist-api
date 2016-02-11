@@ -92,7 +92,7 @@ describe('Wishlist API', () => {
     const client = {
         id: 'f6effb0a6eaf48daf2e9588d76733592',
         secret: 'Broqka1mzxtrwigGA-98hBk0v7ABsQozV.TvyrKtm3nOnpUCm0RMqj9pRf.ctC8X81ac5PLLbszIp4cD5Jeua066c2UfQq665kL6',
-        redirect_uri: `http://localhost:${process.env.PORT}/callback`
+        redirect_uri: `http://localhost:8001/callback`
     };
 
     const user = {
