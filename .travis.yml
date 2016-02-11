@@ -16,6 +16,6 @@ addons:
 services:
   - postgresql
 env:
-  - CXX=g++-4.8 SECRET=testing PORT=8000 REGION=en ACCESS_TOKEN_EXPIRY=3600 DB_NAME=wishlist DB_USERNAME=wishlist DB_PASSWORD='' API_VERSION=1
+  - CXX=g++-4.8 SECRET=testing PORT=8000 REGION=en ACCESS_TOKEN_EXPIRY=3600 PGDATABASE=wishlist PGUSER=wishlist PGPASSWORD='' API_VERSION=1
 before_script:
     - psql -c 'create user wishlist with SUPERUSER CREATEROLE CREATEDB REPLICATION;' -U postgres
