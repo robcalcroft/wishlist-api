@@ -1,2 +1,3 @@
-127.0.0.1:5432:wishlist:wishlist:<PASSWORD>
 127.0.0.1:5432:postgres:postgres:<PASSWORD>
+127.0.0.1:5432:wishlist:wishlist:<PASSWORD>
+127.0.0.1:5432:wishlist-test:wishlist:<PASSWORD>
