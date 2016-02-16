@@ -8,7 +8,6 @@ CREATE TABLE "WishlistItem" (
     "sourceName" varchar(500),
     "imageURI" varchar(500),
     "price" varchar(30),
-    "priceCurrency" varchar(500),
     "priceCurrencySymbol" varchar(500),
     "userPriority" int,
     "dateCreated" timestamp DEFAULT CURRENT_TIMESTAMP

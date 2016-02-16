@@ -502,7 +502,6 @@ describe('Wishlist API', () => {
                             source_name: 'BigHat',
                             description: 'A big hat just for you',
                             price: 12,
-                            price_currency: 'stirling',
                             price_currency_symbol: '£',
                             user_priority: 4,
                             image_uri: 'http://google.com/image.png'
@@ -529,7 +528,6 @@ describe('Wishlist API', () => {
                             source_name: 'BigHat',
                             description: 'A big hat just for you',
                             price: 12,
-                            price_currency: 'stirling',
                             price_currency_symbol: '£',
                             user_priority: 4,
                             image_uri: 'http://google.com/image.png'
@@ -545,7 +543,7 @@ describe('Wishlist API', () => {
                 );
             });
 
-            it('should return a 400 status code if there is no price_currency or price_currency_symbol when price is specified', (done) => {
+            it('should return a 400 status code if there is no price_currency_symbol when price is specified', (done) => {
                 request(
                     {
                         url: `http://127.0.0.1:${process.env.PORT}/api/1/wishlist/item`,
