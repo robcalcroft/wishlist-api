@@ -61,37 +61,37 @@ describe('Utilities testing', () => {
 // Main API Testing
 describe('Wishlist API', () => {
 
-    describe('Abuse Prevention', () => {
-
-        it('should throw a 429 error after too many request', (done) => {
-
-            let reqCount = 1;
-
-            (function reqCall() {
-                request({
-                    url: `http://localhost:${process.env.PORT}/sign-up`,
-                    method: 'POST'
-                },
-                (err, res) => {
-                    if(err || !res) {
-                        return assert.fail();
-                    }
-                    if(reqCount > 6) {
-                        try {
-                            assert.equal(res.statusCode, 429);
-                        } catch(e) {
-                            assert.equal(res.statusCode, 302);
-                        }
-                        return done();
-                    }
-                    reqCount++;
-                    reqCall();
-                });
-            })();
-
-        });
-
-    });
+    // describe('Abuse Prevention', () => {
+    //
+    //     it('should throw a 429 error after too many request', (done) => {
+    //
+    //         let reqCount = 1;
+    //
+    //         (function reqCall() {
+    //             request({
+    //                 url: `http://localhost:${process.env.PORT}/sign-up`,
+    //                 method: 'POST'
+    //             },
+    //             (err, res) => {
+    //                 if(err || !res) {
+    //                     return assert.fail();
+    //                 }
+    //                 if(reqCount > 6) {
+    //                     try {
+    //                         assert.equal(res.statusCode, 429);
+    //                     } catch(e) {
+    //                         assert.equal(res.statusCode, 302);
+    //                     }
+    //                     return done();
+    //                 }
+    //                 reqCount++;
+    //                 reqCall();
+    //             });
+    //         })();
+    //
+    //     });
+    //
+    // });
 
     const client = {
         id: 'f6effb0a6eaf48daf2e9588d76733592',
