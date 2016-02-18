@@ -347,30 +347,6 @@ describe('Wishlist API', () => {
 
     describe('REST API', () => {
 
-        describe('Utilities', () => {
-
-            it('should return data about a URI', function(done) {
-                this.timeout(5000);
-                request(
-                    {
-                        url: `http://127.0.0.1:${process.env.PORT}/api/1/uri-metadata`,
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${accessToken}`
-                        },
-                        qs: {
-                            uri: 'http://www.asos.com/ASOS/ASOS-2-Pack-Socks-With-Kelloggs-Design/Prod/pgeproduct.aspx?iid=5557972&CTARef=Recently%20Viewed'
-                        }
-                    },
-                    (err, res, body) => {
-                        assert(JSON.parse(body).result.title);
-                        done();
-                    }
-                );
-            });
-
-        });
-
         describe('User', () => {
 
             it('should return user profile data', (done) => {
