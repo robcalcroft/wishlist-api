@@ -1,7 +1,7 @@
-CREATE TABLE "WishlistItem" (
+CREATE TABLE WishlistItem (
     "userId" int REFERENCES "User" ("userId"),
     "wishlistId" int REFERENCES "Wishlist" ("wishlistId"),
-    "wishlistItemId" serial NOT NULL UNIQUE PRIMARY KEY,
+    "wishlistItemId" integer PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
     "title" varchar(300) NOT NULL,
     "description" varchar(1000),
     "sourceURI" varchar(2000) NOT NULL,

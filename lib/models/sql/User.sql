@@ -1,5 +1,5 @@
-CREATE TABLE "User" (
-    "userId" serial NOT NULL PRIMARY KEY,
+CREATE TABLE User (
+    "userId" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
     "emailAddress" varchar(255) NOT NULL UNIQUE,
     "username" varchar(25) NOT NULL UNIQUE,
     "password" varchar(100) NOT NULL,

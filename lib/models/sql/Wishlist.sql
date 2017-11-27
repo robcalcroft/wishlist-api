@@ -1,6 +1,6 @@
-CREATE TABLE "Wishlist" (
+CREATE TABLE Wishlist (
     "userId" int REFERENCES "User" ("userId"),
-    "wishlistId" serial NOT NULL UNIQUE PRIMARY KEY,
+    "wishlistId" integer PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE ,
     "title" varchar(100) NOT NULL,
     "dateCreated" timestamp DEFAULT CURRENT_TIMESTAMP,
     "isDefault" boolean NOT NULL,

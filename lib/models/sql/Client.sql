@@ -1,4 +1,4 @@
-CREATE TABLE "Client" (
+CREATE TABLE Client (
     "applicationName" varchar(255) NOT NULL UNIQUE,
     "applicationURI" varchar(50) NOT NULL UNIQUE,
     "redirectURI" varchar(50) NOT NULL,

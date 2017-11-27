@@ -1,4 +1,4 @@
-##Install
+## Install
 
 1. `git clone https://github.com/robcalcroft/wishlist-api.git`
 2. Install [NodeJS](https://nodejs.org/en/download/)
@@ -14,7 +14,7 @@
   ```
 9. Build the database by `npm run db-build` (rebuild using `npm run db-rebuild`, destroy using `npm run db-destroy` and seed for testing with `npm run db-seed`)
 
-##Startup
+## Startup
 **development**
 ```bash
 npm start
@@ -25,7 +25,7 @@ npm start
 NODE_PATH=./lib pm2 start index.js --name wishlist-api
 ```
 
-##Testing
+## Testing
 ```bash
 npm test
 ```

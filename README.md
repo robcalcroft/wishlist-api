@@ -15,8 +15,8 @@ OAuth2 flow is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/d
 
 Setup documentation is [here](https://github.com/robcalcroft/wishlist-api/tree/develop/docs/SETUP.md)
 
-##Issues
+## Issues
 Log issues [here](https://github.com/robcalcroft/wishlist-api/issues)
 
-##License
+## License
 © 2015 Rob Calcroft
