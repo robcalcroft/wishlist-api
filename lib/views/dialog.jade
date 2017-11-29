@@ -10,7 +10,7 @@ body
                 .card.blue-grey.lighten-5
                     .card-content
                         .card-title 
-                            img(class='responsive-img circle', style='margin-bottom:-2px;' src="http://www.gravatar.com/avatar/#{md5(user.emailAddress)}?d=identicon&s=20", alt="Profile Picture") 
+                            img(class='responsive-img circle', style='margin-bottom:-2px;' src="https://www.gravatar.com/avatar/#{md5(user.emailAddress)}?d=identicon&s=20", alt="Profile Picture") 
                             | &nbsp;&nbsp;Hey #{user.firstName}
                         p.grey-text.text-darken-1 #{client.applicationName} is requesting access to your account. This means #{client.applicationName} can perform all the actions you can on the account. #{client.applicationName} can also view all of your information related to your account, except your birthday, for which #{client.applicationName} is only given approximate knowledge, for smart recomendations. 
                         div(class='row', style='padding-top: 3vh;')
